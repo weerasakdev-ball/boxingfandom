@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\WEE-DEV\\\\Desktop\\\\boxingfandom\" -Depth 2 | Select-Object FullName | Where-Object { $_.FullName -notmatch \"node_modules\" })",
+      "Bash(git init *)",
+      "Bash(git add *)"
+    ]
+  }
+}

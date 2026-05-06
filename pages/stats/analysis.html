@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boxing Algorithm Analyzer 4.0 | ระบบวิเคราะห์มวย AI | BoxingFandom</title>
+    <meta name="description" content="ระบบวิเคราะห์มวยอัจฉริยะ 4.0 เปรียบเทียบสถิตินักมวยแบบ Head-to-Head คำนวณอัตราชนะด้วยอัลกอริทึมขั้นสูง">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="BoxingFandom">
+    <meta property="og:title" content="Boxing Algorithm Analyzer | BoxingFandom">
+
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTGDWTKBRG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-RTGDWTKBRG');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7070993370449457" crossorigin="anonymous"></script>
+
+    <style>
+        /* ===== DESIGN TOKENS — ตรงกับ template.html ===== */
+        :root {
+            --primary: #dc2626;
+            --primary-dark: #b91c1c;
+            --blue: #2563eb;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --text-main: #202124;
+            --text-muted: #5f6368;
+            --text-secondary: #3c4043;
+            --border: #e8eaed;
+            --border-hover: #dadce0;
+            --win: #188038;
+            --win-bg: #e6f4ea;
+            --loss: #c5221f;
+            --loss-bg: #fce8e6;
+            --neutral: #80868b;
+            --neutral-bg: #f1f3f4;
+            --gold: #f29900;
+            --dark-header: #202124;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 2px rgba(60,64,67,.1), 0 1px 3px rgba(60,64,67,.08);
+            --shadow-md: 0 1px 6px rgba(60,64,67,.15), 0 2px 8px rgba(60,64,67,.1);
+            --shadow-lg: 0 4px 16px rgba(60,64,67,.12), 0 8px 24px rgba(60,64,67,.08);
+            /* Analysis dark panel tokens */
+            --ana-bg: #0f172a;
+            --ana-card: #1e293b;
+            --ana-text: #f8fafc;
+            --ana-muted: #94a3b8;
+            --ana-border: #334155;
+            --ana-win: #22c55e;
+            --ana-loss: #ef4444;
+            --ana-gold: #f59e0b;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            font-size: 15px;
+        }
+
+        /* ===== HEADER — identical to template ===== */
+        header.main-header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            height: 64px;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            gap: 16px;
+        }
+        .header-logo { text-decoration: none; display: flex; align-items: center; flex-shrink: 0; }
+        .header-logo .logo-boxing { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .header-logo .logo-fandom { font-size: 22px; font-weight: 800; color: var(--dark-header); letter-spacing: -0.5px; }
+
+        .header-search-wrap { flex: 1; max-width: 580px; position: relative; }
+        .header-search-box { display: flex; align-items: center; background: var(--bg); border: 1px solid var(--border); border-radius: 24px; padding: 0 16px; height: 44px; transition: box-shadow .15s, border-color .15s; gap: 10px; }
+        .header-search-box:focus-within { box-shadow: 0 0 0 3px rgba(220,38,38,.12); border-color: var(--primary); background: var(--card); }
+        .header-search-box input[type="text"] { border: none; outline: none; background: transparent; font-family: 'Sarabun'; font-size: 15px; color: var(--text-main); flex: 1; min-width: 0; }
+        .header-search-box input[type="text"]::placeholder { color: var(--text-muted); }
+        .header-search-box button { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 16px; padding: 4px; border-radius: 50%; transition: background .15s; }
+        .header-search-box button:hover { background: var(--border); color: var(--text-main); }
+        .search-dropdown { position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); max-height: 380px; overflow-y: auto; z-index: 3000; display: none; }
+        .search-dropdown-item { padding: 10px 16px; cursor: pointer; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); transition: background .1s; }
+        .search-dropdown-item:last-child { border-bottom: none; }
+        .search-dropdown-item:hover { background: var(--bg); }
+        .search-dropdown-icon { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); background: var(--bg); flex-shrink: 0; }
+        .search-dropdown-info { display: flex; flex-direction: column; overflow: hidden; }
+        .search-dropdown-name { font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .search-dropdown-meta { font-size: 12px; color: var(--text-muted); }
+
+        /* ===== MAIN ===== */
+        main { flex: 1; padding: 32px 16px 48px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        /* ===== BREADCRUMB ===== */
+        .page-nav { display: flex; align-items: center; gap: 8px; margin-bottom: 28px; font-size: 14px; color: var(--text-muted); }
+        .page-nav a { color: var(--text-muted); text-decoration: none; padding: 5px 10px; border-radius: 16px; transition: background .15s, color .15s; }
+        .page-nav a:hover { background: var(--border); color: var(--text-main); }
+        .page-nav .sep { color: var(--border-hover); }
+        .page-nav .current { color: var(--text-main); font-weight: 600; }
+
+        /* ===== PAGE HEADER ===== */
+        .page-header { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px 40px; margin-bottom: 20px; box-shadow: var(--shadow-sm); text-align: center; }
+        .page-header h1 { font-size: 26px; font-weight: 800; color: var(--dark-header); margin-bottom: 6px; }
+        .page-header p { color: var(--text-muted); font-size: 14px; }
+
+        /* ===== SECTION CARD ===== */
+        .section-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px 40px; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
+        .section-title { font-size: 17px; font-weight: 700; color: var(--dark-header); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+        .section-title-bar { width: 3px; height: 18px; background: var(--primary); border-radius: 2px; flex-shrink: 0; }
+
+        /* ===== FIGHTER SEARCH ===== */
+        .search-area { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        .search-area-box { position: relative; }
+        .search-area-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; margin-bottom: 8px; display: block; }
+        .search-area-label.blue { color: var(--blue); }
+        .search-area-label.red { color: var(--primary); }
+
+        .input-field {
+            width: 100%;
+            padding: 11px 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Sarabun';
+            font-size: 14px;
+            color: var(--text-main);
+            background: var(--bg);
+            outline: none;
+            transition: border-color .15s, box-shadow .15s;
+        }
+        .input-field:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.1); background: var(--card); }
+        .search-area-box.red-box .input-field:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(220,38,38,.1); }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0; right: 0;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            box-shadow: var(--shadow-md);
+        }
+        .dropdown-item { padding: 10px 14px; cursor: pointer; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-main); transition: background .1s; }
+        .dropdown-item:last-child { border-bottom: none; }
+        .dropdown-item:hover { background: #eff6ff; color: var(--blue); }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state { text-align: center; padding: 60px 20px; background: var(--bg); border: 1px dashed var(--border-hover); border-radius: var(--radius-md); }
+        .empty-state-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+        .empty-state h3 { font-size: 17px; font-weight: 700; color: var(--dark-header); margin-bottom: 6px; }
+        .empty-state p { color: var(--text-muted); font-size: 14px; }
+
+        /* ===== ANALYSIS DARK PANEL ===== */
+        .analysis-panel {
+            background: var(--ana-bg);
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            color: var(--ana-text);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Fighter header in dark panel */
+        .h2h-header {
+            display: grid;
+            grid-template-columns: 1fr 60px 1fr;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+        .fighter-profile-card {
+            background: var(--ana-card);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 3px solid transparent;
+        }
+        .fighter-profile-card.blue { border-bottom-color: var(--blue); }
+        .fighter-profile-card.red { border-bottom-color: var(--primary); }
+        .fighter-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 3px solid var(--ana-border); margin-bottom: 12px; background: var(--ana-bg); }
+        .fighter-name-panel { font-size: 16px; font-weight: 800; color: var(--ana-text); margin-bottom: 4px; }
+        .fighter-grade-panel { font-size: 13px; font-weight: 700; }
+        .fighter-grade-panel.blue { color: #60a5fa; }
+        .fighter-grade-panel.red { color: #f87171; }
+        .vs-text { font-size: 2rem; font-weight: 900; font-style: italic; color: var(--ana-muted); text-align: center; }
+
+        /* Win probability bar */
+        .win-bar-wrap { margin: 24px 0 8px; }
+        .win-bar-title { font-size: 14px; font-weight: 700; color: var(--ana-gold); text-align: center; margin-bottom: 12px; text-transform: uppercase; letter-spacing: .5px; }
+        .win-bar { height: 40px; background: var(--ana-border); border-radius: 20px; display: flex; overflow: hidden; position: relative; }
+        .bar-1 { background: var(--blue); transition: width 1s ease; }
+        .bar-2 { background: var(--primary); transition: width 1s ease; }
+        .bar-text { position: absolute; width: 100%; display: flex; justify-content: space-between; padding: 0 20px; line-height: 40px; font-weight: 900; font-size: 16px; box-sizing: border-box; color: white; }
+        .verdict { font-size: 20px; font-weight: 800; text-align: center; margin: 14px 0 0; color: var(--ana-text); }
+        .verdict span { color: var(--ana-gold); }
+
+        /* Stats table in dark panel */
+        .stats-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; margin: 24px 0; }
+        .stats-table td { padding: 12px 16px; background: var(--ana-card); text-align: center; font-size: 14px; color: var(--ana-text); }
+        .stats-table td:first-child { border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+        .stats-table td:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+        .label-cell { background: rgba(0,0,0,.25) !important; color: var(--ana-gold); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; width: 140px; }
+        .better-val { color: var(--ana-win); font-weight: 900; background: rgba(34,197,94,.1) !important; border: 1px solid rgba(34,197,94,.3) !important; }
+        .better-val::after { content: ' ✅'; font-size: 11px; }
+
+        /* History in dark panel */
+        .history-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+        .history-card { background: var(--ana-card); border-radius: var(--radius-md); padding: 18px; }
+        .history-card h4 { text-align: center; font-size: 14px; font-weight: 700; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--ana-border); }
+        .history-card h4.blue { color: #60a5fa; }
+        .history-card h4.red { color: #f87171; }
+        .fight-row { display: flex; align-items: center; gap: 12px; background: rgba(0,0,0,.2); padding: 10px 12px; border-radius: var(--radius-sm); margin-bottom: 8px; border-left: 3px solid transparent; }
+        .fight-row.W { border-left-color: var(--ana-win); }
+        .fight-row.L { border-left-color: var(--ana-loss); }
+        .opp-img { width: 44px; height: 44px; border-radius: 6px; object-fit: cover; background: var(--ana-border); flex-shrink: 0; }
+        .fight-info-date { font-size: 11px; color: var(--ana-muted); margin-bottom: 2px; }
+        .fight-info-name { font-size: 14px; font-weight: 700; color: var(--ana-text); }
+        .fight-info-method { font-size: 11px; color: var(--ana-muted); }
+        .fight-result-pill { font-weight: 900; font-size: 13px; margin-left: auto; flex-shrink: 0; }
+
+        /* Logic note */
+        .logic-note {
+            background: rgba(245,158,11,.06);
+            border-left: 3px solid var(--ana-gold);
+            padding: 16px 18px;
+            margin-top: 20px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 13px;
+            color: var(--ana-muted);
+            line-height: 1.7;
+        }
+        .logic-note strong { color: var(--ana-text); display: block; margin-bottom: 8px; }
+        .disclaimer { text-align: center; color: var(--ana-muted); font-size: 12px; margin-top: 16px; }
+
+        /* ===== FOOTER ===== */
+        footer { background: var(--card); border-top: 1px solid var(--border); color: var(--text-muted); text-align: center; padding: 24px 20px; margin-top: auto; }
+        footer nav ul { justify-content: center; list-style: none; display: flex; padding: 0; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+        footer nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 16px; transition: background .15s, color .15s; display: block; }
+        footer nav ul li a:hover { background: var(--bg); color: var(--text-main); }
+        footer p { font-size: 12px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header.main-header { padding: 0 16px; }
+            main { padding: 20px 12px 40px; }
+            .section-card, .page-header { padding: 24px 20px; }
+            .search-area { grid-template-columns: 1fr; }
+            .h2h-header { grid-template-columns: 1fr; }
+            .vs-text { display: none; }
+            .history-grid { grid-template-columns: 1fr; }
+            .analysis-panel { padding: 24px 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+        <a href="../../index.html" class="header-logo">
+            <span class="logo-boxing">Boxing</span><span class="logo-fandom">Fandom</span>
+        </a>
+        <div class="header-search-wrap">
+            <div class="header-search-box">
+                <span style="color:var(--text-muted);">🔍</span>
+                <input type="text" id="globalSearchInput" placeholder="ค้นหานักมวย..." autocomplete="off">
+                <button type="button" id="globalSearchBtn">⏎</button>
+            </div>
+            <div id="globalSearchDropdown" class="search-dropdown"></div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+        <div class="container">
+
+            <!-- Breadcrumb -->
+            <div class="page-nav">
+                <a href="../../index.html">← หน้าแรก</a>
+                <span class="sep">/</span>
+                <span class="current">🧠 วิเคราะห์ AI</span>
+            </div>
+
+            <!-- Page Title -->
+            <div class="page-header">
+                <h1>🧠 Boxing Algorithm Analyzer 4.0</h1>
+                <p>ระบบวิเคราะห์สถิตินักมวยแบบ Head-to-Head คำนวณอัตราชนะด้วย Algorithm ขั้นสูง</p>
+            </div>
+
+            <!-- Fighter Selection -->
+            <div class="section-card">
+                <h2 class="section-title"><span class="section-title-bar"></span> เลือกนักมวยเพื่อวิเคราะห์</h2>
+                <div class="search-area">
+                    <div class="search-area-box">
+                        <span class="search-area-label blue">🔵 มุมน้ำเงิน</span>
+                        <input type="text" id="input1" class="input-field" placeholder="ค้นหาชื่อนักมวย..." autocomplete="off" oninput="filterList(1)" onclick="document.getElementById('drop1').style.display='block'">
+                        <div id="drop1" class="dropdown"></div>
+                    </div>
+                    <div class="search-area-box red-box">
+                        <span class="search-area-label red">🔴 มุมแดง</span>
+                        <input type="text" id="input2" class="input-field" placeholder="ค้นหาชื่อนักมวย..." autocomplete="off" oninput="filterList(2)" onclick="document.getElementById('drop2').style.display='block'">
+                        <div id="drop2" class="dropdown"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis Result -->
+            <div id="main-content-analyzer">
+                <div class="empty-state">
+                    <span class="empty-state-icon">🧠</span>
+                    <h3>พร้อมวิเคราะห์ด้วย Algorithm 4.0</h3>
+                    <p>เลือกนักมวยทั้ง 2 มุม เพื่อเริ่มระบบวิเคราะห์อัจฉริยะ</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="#">นโยบายความเป็นส่วนตัว</a></li>
+                <li><a href="#">เกี่ยวกับฉัน</a></li>
+                <li><a href="#">ติดต่อ</a></li>
+            </ul>
+        </nav>
+        <p>© 2026 สงวนลิขสิทธิ์ BoxingFandom</p>
+    </footer>
+
+    <script>
+        let db = [];
+        let f1 = null, f2 = null;
+
+        /* ===== Cloudinary ===== */
+        function getCloudinaryUrl(imgId, w, h) {
+            if (!imgId || imgId === "ไม่ระบุ" || imgId === "ยังไม่มีข้อมูล" || imgId.trim() === "" || imgId === "noname") return "../../assets/images/noname.jpg";
+            if (imgId.startsWith('http') || imgId.includes('assets/')) return imgId;
+            let clean = imgId.replace(/\.(jpg|jpeg|png|webp)$/i, '');
+            return `https://res.cloudinary.com/dpvyl7nan/image/upload/c_fill,g_face,h_${h},w_${w},f_auto,q_auto/v1/${encodeURIComponent(clean)}`;
+        }
+
+        /* ===== Init — multi-path fallback (เหมือน template.html) ===== */
+        let dbReady = false;
+
+        async function init() {
+            const i1 = document.getElementById('input1');
+            const i2 = document.getElementById('input2');
+            if (i1) i1.placeholder = '⏳ กำลังโหลดข้อมูล...';
+            if (i2) i2.placeholder = '⏳ กำลังโหลดข้อมูล...';
+
+            const listPaths = [
+                '../../data/boxers/fighters-list.json',
+                '../data/boxers/fighters-list.json',
+                './data/boxers/fighters-list.json'
+            ];
+
+            let files = [];
+            let workingBasePath = '';
+
+            for (const path of listPaths) {
+                try {
+                    const res = await fetch(path);
+                    if (res.ok) {
+                        files = await res.json();
+                        workingBasePath = path.replace('fighters-list.json', '');
+                        console.log('[Analysis] โหลด fighters-list สำเร็จจาก:', path);
+                        break;
+                    }
+                } catch (e) { /* ลอง path ถัดไป */ }
+            }
+
+            if (files.length === 0) {
+                console.warn('[Analysis] ไม่พบ fighters-list.json ใน 3 path ที่ลอง');
+                if (i1) i1.placeholder = '❌ ไม่พบข้อมูล กรุณาตรวจสอบ path';
+                if (i2) i2.placeholder = '❌ ไม่พบข้อมูล กรุณาตรวจสอบ path';
+                return;
+            }
+
+            try {
+                const promises = files.map(async (f) => {
+                    try {
+                        const res = await fetch(`${workingBasePath}${encodeURIComponent(f.trim())}`);
+                        return res.ok ? { ...(await res.json()), fileName: f } : null;
+                    } catch (e) { return null; }
+                });
+                db = (await Promise.all(promises)).filter(x => x !== null);
+                dbReady = true;
+                console.log(`[Analysis] โหลดนักมวยสำเร็จ ${db.length} คน`);
+            } catch (e) {
+                console.error('[Analysis] โหลดข้อมูลล้มเหลว:', e);
+            }
+
+            if (i1) i1.placeholder = 'ค้นหาชื่อนักมวย...';
+            if (i2) i2.placeholder = 'ค้นหาชื่อนักมวย...';
+        }
+
+        /* ===== Header Search ===== */
+        const gsi = document.getElementById('globalSearchInput');
+        const gsd = document.getElementById('globalSearchDropdown');
+        gsi.addEventListener('input', function () {
+            const q = this.value.toLowerCase().trim();
+            if (!q) { gsd.style.display = 'none'; return; }
+            const matched = db.filter(x => (x.fighter_profile?.name_th || '').toLowerCase().includes(q) || (x.fighter_profile?.name_en || '').toLowerCase().includes(q)).slice(0, 7);
+            if (!matched.length) { gsd.innerHTML = '<div style="padding:14px;text-align:center;color:#888;font-size:14px;">ไม่พบนักมวย</div>'; gsd.style.display = 'block'; return; }
+            gsd.innerHTML = matched.map(x => {
+                const p = x.fighter_profile || {};
+                return `<a href="../fighter/${encodeURIComponent(x.fileName.replace('.json','.html'))}" class="search-dropdown-item">
+                    <img src="${getCloudinaryUrl(p.image_url,40,40)}" class="search-dropdown-icon" onerror="this.src='../../assets/images/noname.jpg'">
+                    <div class="search-dropdown-info"><span class="search-dropdown-name">${p.name_th}</span><span class="search-dropdown-meta">รุ่น: ${p.physical_stats?.division || '-'}</span></div>
+                </a>`;
+            }).join('');
+            gsd.style.display = 'block';
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.header-search-wrap')) gsd.style.display = 'none';
+            if (!e.target.closest('.search-area-box')) {
+                document.getElementById('drop1').style.display = 'none';
+                document.getElementById('drop2').style.display = 'none';
+            }
+        });
+
+        /* ===== Fighter Dropdown ===== */
+        function filterList(side) {
+            const val = document.getElementById(`input${side}`).value.toLowerCase();
+            const drop = document.getElementById(`drop${side}`);
+            // Guard: ถ้า db ยังโหลดไม่เสร็จ
+            if (!dbReady || db.length === 0) {
+                drop.innerHTML = '<div class="dropdown-item" style="color:var(--text-muted);">⏳ กำลังโหลดข้อมูล กรุณารอสักครู่...</div>';
+                drop.style.display = 'block';
+                return;
+            }
+            drop.style.display = 'block';
+            const filtered = db.filter(x => {
+                const name = (x.fighter_profile?.name_th || '').toLowerCase();
+                const alias = (x.fighter_profile?.alias || '').toLowerCase();
+                return name.includes(val) || alias.includes(val);
+            });
+            drop.innerHTML = filtered.length
+                ? filtered.map(x => `<div class="dropdown-item" onclick="selectFighter(${side},'${x.fileName}')">${x.fighter_profile.name_th} <span style="color:var(--text-muted);font-size:12px;">[${x.fighter_profile.grade || '-'}]</span></div>`).join('')
+                : '<div class="dropdown-item">ไม่พบข้อมูล</div>';
+        }
+
+        function selectFighter(side, fileName) {
+            const data = db.find(x => x.fileName === fileName);
+            if (!data) return;
+            if (side === 1) f1 = data; else f2 = data;
+            document.getElementById(`input${side}`).value = data.fighter_profile.name_th;
+            document.getElementById(`drop${side}`).style.display = 'none';
+            if (f1 && f2) runVisualization();
+        }
+
+        /* ===== Run Visualization ===== */
+        function runVisualization() {
+            const p1 = f1.fighter_profile, p2 = f2.fighter_profile;
+            const main = document.getElementById('main-content-analyzer');
+
+            // Algorithm 4.0
+            let s1 = 1000, s2 = 1000;
+            let logs = [];
+            const gV = { "S": 200, "A+": 160, "A": 140, "B+": 90, "B": 70, "C": 30 };
+            s1 += gV[p1.grade] || 0;
+            s2 += gV[p2.grade] || 0;
+
+            const w1 = parseFloat(p1.physical_stats?.weight_lbs) || 0;
+            const w2 = parseFloat(p2.physical_stats?.weight_lbs) || 0;
+            const h1 = parseFloat(p1.physical_stats?.height_cm) || 0;
+            const h2 = parseFloat(p2.physical_stats?.height_cm) || 0;
+
+            if (Math.abs(w1 - w2) >= 3) {
+                if (w1 > w2) { s1 += (w1 - w2) * 25; logs.push(`ได้เปรียบแรงปะทะจากน้ำหนักตัวที่มากกว่า`); }
+                else { s2 += (w2 - w1) * 25; logs.push(`ได้เปรียบแรงปะทะจากน้ำหนักตัวที่มากกว่า`); }
+            } else if (Math.abs(h1 - h2) >= 5) {
+                if (h1 > h2) { s1 += (h1 - h2) * 15; logs.push(`ได้เปรียบช่วงชกที่ยาวกว่า`); }
+                else { s2 += (h2 - h1) * 15; logs.push(`ได้เปรียบช่วงชกที่ยาวกว่า`); }
+            }
+
+            const age1 = p1.personal_info?.age || 25, age2 = p2.personal_info?.age || 25;
+            const peak = (a) => (a >= 24 && a <= 28) ? 80 : (a >= 34 ? -50 : 30);
+            s1 += peak(age1); s2 += peak(age2);
+
+            const prob1 = Math.round((s1 / (s1 + s2)) * 100);
+            const prob2 = 100 - prob1;
+
+            const getBetter = (v1, v2, type = 'high') => {
+                if (v1 === v2) return ['', ''];
+                if (type === 'high') return v1 > v2 ? ['better-val', ''] : ['', 'better-val'];
+                return v1 < v2 ? ['better-val', ''] : ['', 'better-val'];
+            };
+
+            const bGrade = getBetter(gV[p1.grade] || 0, gV[p2.grade] || 0);
+            const bWeight = getBetter(w1, w2);
+            const bHeight = getBetter(h1, h2);
+            const bAge = getBetter(peak(age1), peak(age2));
+
+            const renderHist = (hist) => (hist || []).slice(0, 3).map(h => {
+                const opp = db.find(x => x.fighter_profile.name_th === (h.opponent_th || h.opponent_en));
+                const img = opp ? getCloudinaryUrl(opp.fighter_profile.image_url, 50, 50) : '../../assets/images/noname.jpg';
+                const isWin = (h.result || '').toLowerCase() === 'win';
+                return `<div class="fight-row ${isWin ? 'W' : 'L'}">
+                    <img src="${img}" class="opp-img" onerror="this.src='../../assets/images/noname.jpg';">
+                    <div style="flex:1;min-width:0;">
+                        <div class="fight-info-date">${h.date || '-'}</div>
+                        <div class="fight-info-name">${h.opponent_th || h.opponent_en || '-'}</div>
+                        <div class="fight-info-method">${h.method_th || h.method_en || '-'}</div>
+                    </div>
+                    <div class="fight-result-pill" style="color:${isWin ? '#22c55e' : '#ef4444'}">${isWin ? 'ชนะ' : 'แพ้'}</div>
+                </div>`;
+            }).join('');
+
+            const img1 = getCloudinaryUrl(p1.image_url, 200, 200);
+            const img2 = getCloudinaryUrl(p2.image_url, 200, 200);
+
+            main.innerHTML = `
+                <div class="section-card" style="padding:0; overflow:hidden;">
+                    <div class="analysis-panel">
+
+                        <!-- Fighter Header -->
+                        <div class="h2h-header">
+                            <div class="fighter-profile-card blue">
+                                <img src="${img1}" class="fighter-img" onerror="this.src='../../assets/images/noname.jpg'">
+                                <div class="fighter-name-panel">${p1.name_th}</div>
+                                <div class="fighter-grade-panel blue">${p1.grade || '-'} TIER</div>
+                            </div>
+                            <div class="vs-text">VS</div>
+                            <div class="fighter-profile-card red">
+                                <img src="${img2}" class="fighter-img" onerror="this.src='../../assets/images/noname.jpg'">
+                                <div class="fighter-name-panel">${p2.name_th}</div>
+                                <div class="fighter-grade-panel red">${p2.grade || '-'} TIER</div>
+                            </div>
+                        </div>
+
+                        <!-- Win Probability -->
+                        <div class="win-bar-wrap">
+                            <div class="win-bar-title">📊 Algorithm Win Probability</div>
+                            <div class="win-bar">
+                                <div class="bar-1" style="width:${prob1}%"></div>
+                                <div class="bar-2" style="width:${prob2}%"></div>
+                                <div class="bar-text"><span>${prob1}%</span><span>${prob2}%</span></div>
+                            </div>
+                            <div class="verdict">ฟันธง: <span>${prob1 > prob2 ? p1.name_th : p2.name_th}</span> เป็นต่อ</div>
+                        </div>
+
+                        <!-- Stats Table -->
+                        <table class="stats-table">
+                            <tr>
+                                <td class="${bGrade[0]}">${p1.grade || '-'}</td>
+                                <td class="label-cell">GRADE</td>
+                                <td class="${bGrade[1]}">${p2.grade || '-'}</td>
+                            </tr>
+                            <tr>
+                                <td class="${bWeight[0]}">${w1 || '-'} lbs</td>
+                                <td class="label-cell">WEIGHT</td>
+                                <td class="${bWeight[1]}">${w2 || '-'} lbs</td>
+                            </tr>
+                            <tr>
+                                <td class="${bHeight[0]}">${h1 || '-'} cm</td>
+                                <td class="label-cell">HEIGHT</td>
+                                <td class="${bHeight[1]}">${h2 || '-'} cm</td>
+                            </tr>
+                            <tr>
+                                <td class="${bAge[0]}">${age1 || '-'} ปี</td>
+                                <td class="label-cell">AGE (Peak)</td>
+                                <td class="${bAge[1]}">${age2 || '-'} ปี</td>
+                            </tr>
+                        </table>
+
+                        <!-- Fight History -->
+                        <div class="history-grid">
+                            <div class="history-card">
+                                <h4 class="blue">ฟอร์ม 3 ไฟต์หลัง — มุมน้ำเงิน</h4>
+                                ${renderHist(f1.fight_history_one_championship || f1.fight_history)}
+                            </div>
+                            <div class="history-card">
+                                <h4 class="red">ฟอร์ม 3 ไฟต์หลัง — มุมแดง</h4>
+                                ${renderHist(f2.fight_history_one_championship || f2.fight_history)}
+                            </div>
+                        </div>
+
+                        <!-- Logic Note -->
+                        <div class="logic-note">
+                            <strong>📌 ตรรกะวิเคราะห์ (Algorithm V4.0)</strong>
+                            1. <b>ถ่วงดุลน้ำหนัก:</b> หากน้ำหนักต่างกันเกิน 3 ปอนด์ ระบบให้ความสำคัญกับ "แรงปะทะ" มากกว่าส่วนสูง<br>
+                            2. <b>ความสด:</b> ช่วงอายุ 24–28 ปี ได้รับโบนัสคะแนนร่างกายสูงสุด อายุ 34 ปีขึ้นไปถูกลดทอนคะแนน<br>
+                            3. <b>ความต่างเกรด:</b> ระดับชั้นมวย (S, A, B) ถูกนำมาเป็นค่าตั้งต้นเพื่อให้เกียรติกระดูกมวยที่ต่างกัน
+                        </div>
+                        <p class="disclaimer">*การวิเคราะห์นี้เป็นเพียงความน่าจะเป็นทางสถิติ ผลการแข่งขันจริงอาจเปลี่ยนแปลงได้เสมอ</p>
+
+                    </div>
+                </div>
+            `;
+        }
+
+        init();
+    </script>
+</body>
+</html>

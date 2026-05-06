@@ -1,0 +1,53 @@
+{
+    "fighter_profile": {
+        "name_th": "คาอิโตะ โอโนะ",
+        "name_en": "Kaito Ono",
+        "alias": "",
+        "image_url": "คาอิโตะ-โอโนะ",
+        "grade": "",
+        "fighting_style_th": "",
+        "fighting_style_en": "",
+        "stance": "",
+        "physical_stats": {
+            "weight_lbs": "",
+            "weight_kg": "",
+            "division": "",
+            "height_ft": "5'10\"",
+            "height_cm": 180,
+            "reach_cm": "",
+            "leg_reach_cm": ""
+        },
+        "performance_stats": {
+            "significant_strikes_per_minute": {},
+            "significant_strike_accuracy": {},
+            "defensive_stats": {}
+        },
+        "personal_info": {
+            "country_th": "ญี่ปุ่น",
+            "country_en": "Japan",
+            "age": 28,
+            "team_th": "Team F.O.D.",
+            "team_en": ""
+        },
+        "target_urls": [
+            "https://www.onefc.com/th/athletes/kaito-ono/"
+        ],
+        "short_biography": "คาอิโตะ โอโนะ (Kaito Ono) เป็นนักชกชาวญี่ปุ่น วัย 28 ปี จากสังกัดTeam F.O.D. มีความถนัดในการต่อสู้สไตล์ ปัจจุบันชกอยู่ในพิกัดน้ำหนัก  (ประมาณ  กิโลกรัม) ส่วนสูง 180 เซนติเมตร ผลงานการชกล่าสุดในรายการ ONE ลุมพินี 109 สามารถพ่ายแพ้ให้กับ โมฮัมหมัด เซียซารานี ด้วยรูปแบบ Unanimous Decision ถือเป็นนักชกที่น่าติดตามผลงานอย่างยิ่ง"
+    },
+    "weigh_in_history": [],
+    "fight_history": [
+        {
+            "result": "Loss",
+            "discipline_en": "Kickboxing",
+            "method_en": "Unanimous Decision",
+            "round": 3,
+            "time": "3:00",
+            "opponent_th": "โมฮัมหมัด เซียซารานี",
+            "opponent_en": "",
+            "opponent_country": "อิหร่าน",
+            "date": "May 23, 2025",
+            "rating": "",
+            "event_en": "ONE ลุมพินี 109"
+        }
+    ]
+}

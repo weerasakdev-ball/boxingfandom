@@ -1,0 +1,230 @@
+{
+    "fighter_profile": {
+        "name_th": "ขุนศึก ทีวันไฟต์อะคาเดมี",
+        "name_en": "Khunsuk T-One Fight Academy",
+        "alias": "ขุนศึก ส.เดชะพันธ์",
+        "image_url": "ขุนศึก-ทีวันไฟต์อะคาเดมี",
+        "grade": "ไม่ระบุ",
+        "fighting_style_th": "มวยไทย",
+        "fighting_style_en": "Muay Thai",
+        "stance": "ไม่ระบุ",
+        "physical_stats": {
+            "weight_lbs": 115,
+            "weight_kg": 52.16,
+            "division": "Atomweight",
+            "height_ft": "5'2\"",
+            "height_cm": 160,
+            "reach_cm": "ไม่ระบุ",
+            "leg_reach_cm": "ไม่ระบุ",
+            "hydration": "N/A"
+        },
+        "performance_stats": {
+            "significant_strikes_per_minute": "ยังไม่มีข้อมูล",
+            "significant_strike_accuracy": "ยังไม่มีข้อมูล",
+            "defensive_stats": "ยังไม่มีข้อมูล"
+        },
+        "personal_info": {
+            "country_th": "ไทย",
+            "country_en": "Thailand",
+            "age": 22,
+            "team_th": "ส.เดชะพันธ์",
+            "team_en": "Sor. Dechapan"
+        },
+        "target_urls": [
+            "https://www.onefc.com/th/athletes/khunsuk-sor-dechapan/"
+        ],
+        "short_biography": "ขุนศึก ทีวันไฟต์อะคาเดมี (Khunsuk T-One Fight Academy) เป็นนักชกชาวไทย วัย 22 ปี จากสังกัดส.เดชะพันธ์ มีความถนัดในการต่อสู้สไตล์มวยไทย ปัจจุบันชกอยู่ในพิกัดน้ำหนัก Atomweight (ประมาณ 52.16 กิโลกรัม) ส่วนสูง 160 เซนติเมตร ผลงานการชกล่าสุดในรายการ ONE ลุมพินี 149 & The Inner Circle สามารถพ่ายแพ้ให้กับ ฮาร์ เลง์ ออม ด้วยรูปแบบ Unanimous Decision ถือเป็นนักชกที่น่าติดตามผลงานอย่างยิ่ง"
+    },
+    "weigh_in_history": [
+        {
+            "event_name": "ONE LUMPINEE 149",
+            "weight_lbs": 115,
+            "division": "Atomweight"
+        }
+    ],
+    "fight_history": [
+        {
+            "result": "Loss",
+            "discipline_en": "Muay Thai",
+            "method_en": "Unanimous Decision",
+            "round": 3,
+            "time": "3:00",
+            "opponent_th": "ฮาร์ เลง์ ออม",
+            "opponent_en": "",
+            "opponent_country": "เมียนมา",
+            "date": "Apr 03, 2026",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 149 & The Inner Circle"
+        },
+        {
+            "result": "Win",
+            "discipline_en": "Muay Thai",
+            "method_en": "Unanimous Decision",
+            "round": 3,
+            "time": "3:00",
+            "opponent_th": "เนย์ ไยน์",
+            "opponent_en": "",
+            "opponent_country": "เมียนมา",
+            "date": "Jan 23, 2026",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 139"
+        },
+        {
+            "result": "Win",
+            "discipline_en": "Muay Thai",
+            "method_en": "KO/TKO",
+            "round": 2,
+            "time": "2:39",
+            "opponent_th": "ทับทิมทอง อิงฟ้าโฮเทลอุบล",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "Oct 24, 2025",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 130"
+        },
+        {
+            "result": "Loss",
+            "discipline_en": "Muay Thai",
+            "method_en": "Unanimous Decision",
+            "round": 3,
+            "time": "3:00",
+            "opponent_th": "ชาติพิชิต สส.ต้อยแปดริ้ว",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "Jul 04, 2025",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 115"
+        },
+        {
+            "result": "Loss",
+            "discipline_en": "Muay Thai",
+            "method_en": "KO/TKO",
+            "round": 2,
+            "time": "2:24",
+            "opponent_th": "เพชร สวนหลวงรถยก",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "Apr 11, 2025",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 104"
+        },
+        {
+            "result": "Win",
+            "discipline_en": "Muay Thai",
+            "method_en": "KO/TKO",
+            "round": 3,
+            "time": "1:18",
+            "opponent_th": "ก้องบูรพา อ.เทพสุภา",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "Jan 17, 2025",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 94"
+        },
+        {
+            "result": "Loss",
+            "discipline_en": "Muay Thai",
+            "method_en": "Unanimous Decision",
+            "round": 3,
+            "time": "3:00",
+            "opponent_th": "ชาติพิชิต สส.ต้อยแปดริ้ว",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "Aug 09, 2024",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 74"
+        },
+        {
+            "result": "Loss",
+            "discipline_en": "Muay Thai",
+            "method_en": "Unanimous Decision",
+            "round": 3,
+            "time": "3:00",
+            "opponent_th": "ทับทิมทอง อิงฟ้าโฮเทลอุบล",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "Mar 08, 2024",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 54"
+        },
+        {
+            "result": "Win",
+            "discipline_en": "Muay Thai",
+            "method_en": "KO/TKO",
+            "round": 1,
+            "time": "0:55",
+            "opponent_th": "เหนือเพชร กีล่าสปอร์ต",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "Jan 12, 2024",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 47"
+        },
+        {
+            "result": "Win",
+            "discipline_en": "Muay Thai",
+            "method_en": "KO/TKO",
+            "round": 2,
+            "time": "1:19",
+            "opponent_th": "เดชภูผา โชติบางแสน",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "Nov 10, 2023",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 40"
+        },
+        {
+            "result": "Win",
+            "discipline_en": "Muay Thai",
+            "method_en": "KO/TKO",
+            "round": 3,
+            "time": "0:42",
+            "opponent_th": "ราชันย์ ส.สมนึก",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "Aug 04, 2023",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 27"
+        },
+        {
+            "result": "Loss",
+            "discipline_en": "Muay Thai",
+            "method_en": "KO/TKO",
+            "round": 3,
+            "time": "1:53",
+            "opponent_th": "ราชันย์ ส.สมนึก",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "May 19, 2023",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 17"
+        },
+        {
+            "result": "Win",
+            "discipline_en": "Muay Thai",
+            "method_en": "Unanimous Decision",
+            "round": 3,
+            "time": "3:00",
+            "opponent_th": "เกาะเต่า เพชรสมนึก",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "Apr 07, 2023",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 12"
+        },
+        {
+            "result": "Win",
+            "discipline_en": "Muay Thai",
+            "method_en": "KO/TKO",
+            "round": 2,
+            "time": "0:52",
+            "opponent_th": "ยอดบัวงาม ลัคกี้บันเทิง",
+            "opponent_en": "",
+            "opponent_country": "ไทย",
+            "date": "Feb 17, 2023",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 5"
+        }
+    ],
+    "upcoming_fights": []
+}

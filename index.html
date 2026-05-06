@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BoxingFandom | จัดอันดับนักมวย</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --google-blue: #1a73e8;
+      --google-red: #ea4335;
+      --text-dark: #202124;
+      --text-gray: #5f6368;
+      --bg-light: #f8f9fa;
+      --white: #ffffff;
+      --border-color: #dadce0;
+      --gray-100: #f1f5f9;
+      --info-bg: #e8f0fe;
+      --info-text: #1967d2;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sarabun', sans-serif; }
+    body { background-color: var(--bg-light); color: var(--text-dark); -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; color: inherit; }
+
+    /* --- Header --- */
+    header { background: var(--white); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 100; }
+    .header-inner { max-width: 1400px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; }
+    .logo .r { color: var(--google-red); }
+    nav ul { list-style: none; display: flex; gap: 24px; }
+    nav ul li a { font-weight: 600; color: var(--text-gray); font-size: 15px; transition: 0.2s; }
+    nav ul li a:hover, nav ul li a.active { color: var(--google-blue); }
+
+    /* --- Main --- */
+    main { max-width: 1400px; margin: 40px auto; padding: 0 24px; }
+    
+    .section-header { 
+      margin-bottom: 32px; 
+      border-bottom: 2px solid var(--text-dark); 
+      padding-bottom: 12px; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: flex-end; 
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .section-header h1 { font-size: 30px; font-weight: 900; color: var(--text-dark); }
+    
+    /* --- Filter Bar (ตัวกรองและปุ่มข้อมูล) --- */
+    .filter-bar {
+      display: flex; align-items: center; gap: 12px; background: var(--white);
+      padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border-color);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .filter-bar label { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+    .filter-bar select {
+      padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-color);
+      font-size: 14px; font-family: 'Sarabun', sans-serif; font-weight: 600;
+      color: var(--google-blue); cursor: pointer; outline: none; transition: 0.2s;
+    }
+    .filter-bar select:focus { border-color: var(--google-blue); }
+
+    /* เส้นกั้นแบ่งระหว่างปุ่มกับตัวกรอง */
+    .filter-divider {
+      width: 1px; height: 24px; background: var(--border-color); margin: 0 4px;
+    }
+
+    /* --- Tooltip Info (เมื่อเอาเมาส์ชี้) --- */
+    .tooltip-container { position: relative; display: flex; align-items: center; }
+    .info-trigger {
+      font-size: 13px; font-weight: 700; color: var(--info-text);
+      background: var(--info-bg); padding: 6px 12px; border-radius: 20px;
+      cursor: pointer; display: flex; align-items: center; gap: 6px;
+      transition: background 0.2s;
+    }
+    .info-trigger:hover { background: #d2e3fc; }
+    
+    .tooltip-content {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 320px;
+      background: var(--white);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+      border-radius: 8px;
+      padding: 16px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: all 0.2s ease-in-out;
+      pointer-events: none; /* ป้องกันเมาส์ไปโดนตอนที่ซ่อนอยู่ */
+    }
+    /* ให้แสดงกล่องเมื่อเอาเมาส์ชี้ที่ปุ่ม */
+    .tooltip-container:hover .tooltip-content {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .tooltip-content::before {
+      content: ''; position: absolute; top: -6px; right: 40px;
+      width: 12px; height: 12px; background: var(--white);
+      border-top: 1px solid var(--border-color); border-left: 1px solid var(--border-color);
+      transform: rotate(45deg);
+    }
+    .tooltip-content h3 { font-size: 14px; color: var(--info-text); margin-bottom: 8px; font-weight: 800; }
+    .tooltip-content ul { margin-left: 20px; color: var(--text-dark); font-size: 13px; line-height: 1.6; }
+    .tooltip-content li { margin-bottom: 4px; }
+    .tooltip-content li strong { font-weight: 700; }
+
+    /* --- Grid ตารางจัดอันดับ (3 คอลัมน์) --- */
+    .rankings-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+
+    @media (max-width: 1024px) { .rankings-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 768px) {
+      .rankings-grid { grid-template-columns: 1fr; }
+      nav { display: none; }
+      .tooltip-content { right: auto; left: 0; }
+      .tooltip-content::before { right: auto; left: 40px; }
+    }
+
+    /* --- คอลัมน์ --- */
+    .division-col {
+      background: var(--white); border-radius: 12px; padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid var(--border-color);
+    }
+    .division-title {
+      color: var(--google-red); font-size: 15px; font-weight: 900;
+      letter-spacing: 0.5px; margin-bottom: 20px;
+    }
+
+    /* --- แชมป์เปี้ยน --- */
+    .champion-box {
+      border-bottom: 2px solid var(--bg-light); padding-bottom: 20px; margin-bottom: 20px;
+      display: flex; flex-direction: column; cursor: pointer; transition: opacity 0.2s;
+    }
+    .champion-box:hover { opacity: 0.8; }
+    .champion-name { font-size: 24px; font-weight: 900; line-height: 1.2; }
+    .champion-label { color: var(--border-color); font-size: 13px; font-weight: 800; letter-spacing: 1px; margin-top: 4px; }
+    
+    .champion-img {
+      width: 100%; height: 280px; object-fit: cover; object-position: top center; 
+      margin-top: 16px; border-radius: 8px; background-color: var(--bg-light);
+      border: 1px solid var(--border-color);
+    }
+    
+    .champ-stats { margin-top: 12px; font-size: 14px; color: var(--text-gray); font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+    .champ-score { color: var(--google-blue); font-weight: 800; font-size: 16px; }
+
+    /* --- รายชื่ออันดับ --- */
+    .rank-list { list-style: none; }
+    .rank-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--bg-light); transition: background 0.2s; }
+    .rank-item:last-child { border-bottom: none; }
+    .rank-item:hover { background-color: var(--bg-light); cursor: pointer; }
+    .rank-num { width: 32px; font-size: 16px; font-weight: 900; color: var(--text-dark); flex-shrink: 0; }
+    
+    .rank-avatar {
+      width: 44px; height: 44px; border-radius: 50%; object-fit: cover;
+      object-position: top center; margin-right: 12px;
+      border: 1px solid var(--border-color); background: var(--gray-100); flex-shrink: 0;
+    }
+
+    .rank-info { flex: 1; min-width: 0; }
+    .rank-name { font-size: 15px; font-weight: 700; color: var(--text-dark); display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .rank-score { font-size: 12px; color: var(--text-gray); font-weight: 500; }
+    
+    /* ป้ายฟอร์มการชก */
+    .rank-form { display: flex; gap: 3px; flex-shrink: 0; margin-left: 10px; }
+    .form-badge { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 4px; font-size: 11px; font-weight: 800; }
+    .badge-w { background: #e6f4ea; color: #137333; }
+    .badge-l { background: #fce8e6; color: #c5221f; }
+    .badge-d { background: #fef7e0; color: #ea8600; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <span class="r">Boxing</span><span style="color: var(--text-dark);">Fandom</span>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="index.html" class="active">จัดอันดับยอดเยี่ยม</a></li>
+          <li><a href="pages/fighter/index.html">รายชื่อนักมวย</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="section-header">
+      <h1>จัดอันดับนักมวยยอดเยี่ยม</h1>
+      
+      <div class="filter-bar">
+        <!-- ปุ่ม Tooltip อธิบายเกณฑ์คะแนน -->
+        <div class="tooltip-container">
+          <div class="info-trigger">💡 เกณฑ์ให้คะแนน</div>
+          <div class="tooltip-content">
+            <h3>เกณฑ์การคิดคะแนน</h3>
+            <ul>
+              <li><strong>การชนะ:</strong> ได้รับ +3 คะแนน (น็อกเอาต์/ซับมิชชัน โบนัส +1 คะแนน)</li>
+              <li><strong>การแพ้:</strong> หัก -1 คะแนน</li>
+              <li><strong>คะแนนเท่ากัน:</strong> ดูที่ "เกรดนักมวย" เป็นอันดับแรก หากเท่ากันจะดูว่าใคร "แพ้น้อยกว่า" ให้อยู่อันดับสูงกว่า</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="filter-divider"></div>
+
+        <!-- ตัวกรองผลงานปี -->
+        <label for="yearFilter">ผลงานปี:</label>
+        <select id="yearFilter">
+          <option value="2026" selected>2569 (ปัจจุบัน)</option>
+          <option value="2025">2568</option>
+          <option value="2024">2567</option>
+          <option value="all">รวมตลอดอาชีพ</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="rankings-grid" id="rankingsGrid">
+      <div style="color: var(--text-gray); padding: 20px; grid-column: 1/-1; text-align: center;">กำลังวิเคราะห์ข้อมูลจัดอันดับ...</div>
+    </div>
+  </main>
+
+  <script>
+    const gradeWeight = { "S": 10, "A+": 9, "A": 8, "B+": 7, "B": 6, "C+": 5, "C": 4 };
+    
+    const targetDivisions = [
+      { key: "flyweight", title: "รุ่นฟลายเวต (135 ป.)" },
+      { key: "bantamweight", title: "รุ่นแบนตัมเวต (145 ป.)" },
+      { key: "featherweight", title: "รุ่นเฟเธอร์เวต (155 ป.)" },
+      { key: "strawweight", title: "รุ่นสตรอว์เวต (125 ป.)" },
+      { key: "atomweight", title: "รุ่นอะตอมเวต (115 ป.)" },
+      { key: "lightweight", title: "รุ่นไลต์เวต (170 ป.)" }
+    ];
+
+    let globalFightersData = []; 
+
+    function getCloudinaryUrl(imgId, w, h) {
+      const noImg = 'assets/images/noname.jpg';
+      if (!imgId || imgId === 'ไม่ระบุ' || imgId === 'ยังไม่มีข้อมูล' || imgId.trim() === '' || imgId === 'noname') return noImg;
+      if (imgId.startsWith('http') || imgId.includes('assets/')) return imgId;
+      
+      let clean = imgId.trim().replace(/\.(jpg|jpeg|png|webp)$/i, '');
+      return `https://res.cloudinary.com/dpvyl7nan/image/upload/c_fill,g_face,h_${h},w_${w},f_auto,q_auto/v1/${encodeURI(clean)}`;
+    }
+
+    function calculateStats(fights, selectedYear) {
+      let validFights = fights || [];
+      
+      if (selectedYear !== 'all') {
+        validFights = validFights.filter(f => (f.date || '').includes(selectedYear));
+      }
+
+      if (validFights.length === 0) return { formHTML: '<span class="form-badge" style="background:#f1f3f4;color:#5f6368;">-</span>', score: 0, wins: 0, losses: 0 };
+      
+      let score = 0, wins = 0, losses = 0;
+      
+      validFights.forEach(f => {
+        const r = (f.result || '').toLowerCase();
+        if (r === 'win') { 
+          score += 3; wins++; 
+          if (f.method_en && (f.method_en.includes('KO') || f.method_en.includes('TKO') || f.method_en.includes('Submission'))) {
+              score++; 
+          }
+        }
+        else if (r === 'loss') { score--; losses++; }
+      });
+
+      const formHTML = validFights.slice(0, 3).reverse().map(f => {
+        const r = (f.result || '').toLowerCase();
+        let cls = 'badge-d', txt = '-';
+        if (r === 'win') { cls = 'badge-w'; txt = 'ชนะ'; }
+        else if (r === 'loss') { cls = 'badge-l'; txt = 'แพ้'; }
+        else if (r === 'draw') { cls = 'badge-d'; txt = 'เสมอ'; }
+        return `<span class="form-badge ${cls}">${txt}</span>`;
+      }).join('');
+
+      return { formHTML, score, wins, losses };
+    }
+
+    function renderRankings() {
+      const grid = document.getElementById('rankingsGrid');
+      const selectedYear = document.getElementById('yearFilter').value;
+      const divisionsMap = {};
+
+      targetDivisions.forEach(div => {
+        divisionsMap[div.key] = [];
+      });
+
+      globalFightersData.forEach(f => {
+        const profile = f.fighter_profile || {};
+        const divLower = (profile.physical_stats?.division || '').toLowerCase();
+
+        const matchedDiv = targetDivisions.find(d => d.key === divLower);
+        
+        if (matchedDiv) {
+          const stats = calculateStats(f.fight_history || [], selectedYear);
+          if (stats.wins > 0 || stats.losses > 0 || selectedYear === 'all') {
+             divisionsMap[matchedDiv.key].push({ ...f, calculatedStats: stats });
+          }
+        }
+      });
+
+      let htmlContent = '';
+      
+      targetDivisions.forEach(divObj => {
+        const fighters = divisionsMap[divObj.key];
+        if (!fighters || fighters.length === 0) return; 
+
+        fighters.sort((a, b) => {
+          const statA = a.calculatedStats;
+          const statB = b.calculatedStats;
+          if (statB.score !== statA.score) return statB.score - statA.score;
+          const gradeA = gradeWeight[a.fighter_profile.grade] || 0;
+          const gradeB = gradeWeight[b.fighter_profile.grade] || 0;
+          if (gradeB !== gradeA) return gradeB - gradeA;
+          return statA.losses - statB.losses;
+        });
+
+        const championData = fighters[0];
+        const champProfile = championData.fighter_profile;
+        const champStats = championData.calculatedStats;
+        const champImg = getCloudinaryUrl(champProfile.image_url, 400, 500); 
+        const champLink = `pages/fighter/${encodeURIComponent(championData.fileName.replace('.json', '.html'))}`;
+        
+        const contenders = fighters.slice(1, 6); 
+
+        let divHtml = `
+          <div class="division-col">
+            <div class="division-title">${divObj.title}</div>
+            
+            <a href="${champLink}" class="champion-box">
+              <div class="champion-name">${champProfile.name_th || champProfile.name_en || '-'}</div>
+              <div class="champion-label">อันดับ 1</div>
+              <img src="${champImg}" class="champion-img" alt="${champProfile.name_th || 'Fighter'}" onerror="this.onerror=null; this.src='assets/images/noname.jpg';">
+              <div class="champ-stats">
+                <span>ชนะ ${champStats.wins} - แพ้ ${champStats.losses}</span>
+                <span class="champ-score">${champStats.score} คะแนน</span>
+              </div>
+            </a>
+            <ul class="rank-list">
+        `;
+
+        contenders.forEach((contender, index) => {
+          const p = contender.fighter_profile;
+          const cStats = contender.calculatedStats;
+          const link = `pages/fighter/${encodeURIComponent(contender.fileName.replace('.json', '.html'))}`;
+          
+          const avatarImg = getCloudinaryUrl(p.image_url, 100, 100);
+          
+          divHtml += `
+              <li class="rank-item" onclick="window.location.href='${link}'">
+                <span class="rank-num">${index + 2}</span>
+                <img src="${avatarImg}" class="rank-avatar" alt="${p.name_th || '-'}" onerror="this.onerror=null; this.src='assets/images/noname.jpg';">
+                <div class="rank-info">
+                  <span class="rank-name">${p.name_th || p.name_en || '-'}</span>
+                  <span class="rank-score">${cStats.score} คะแนน · เกรด ${p.grade || '-'}</span>
+                </div>
+                <div class="rank-form">${cStats.formHTML}</div>
+              </li>
+          `;
+        });
+
+        divHtml += `</ul></div>`;
+        htmlContent += divHtml;
+      });
+
+      grid.innerHTML = htmlContent || '<div style="color: var(--text-gray); grid-column: 1/-1; text-align: center; font-size: 16px;">ยังไม่มีผลการชกในปีที่เลือก</div>';
+    }
+
+    async function initSystem() {
+      try {
+        const listRes = await fetch('data/boxers/fighters-list.json');
+        if (!listRes.ok) throw new Error('ไม่พบข้อมูลนักมวย');
+        const files = await listRes.json();
+
+        const results = await Promise.all(files.map(async (file) => {
+          try {
+            const res = await fetch(`data/boxers/${encodeURIComponent(file)}`);
+            if (!res.ok) return null;
+            const data = await res.json();
+            return { ...data, fileName: file };
+          } catch { return null; }
+        }));
+
+        globalFightersData = results.filter(Boolean);
+        renderRankings(); 
+
+      } catch (err) {
+        document.getElementById('rankingsGrid').innerHTML = `<div style="color: var(--google-red); grid-column: 1/-1; text-align: center;">เกิดข้อผิดพลาด: ${err.message}</div>`;
+      }
+    }
+
+    document.getElementById('yearFilter').addEventListener('change', renderRankings);
+
+    initSystem();
+  </script>
+</body>
+</html>

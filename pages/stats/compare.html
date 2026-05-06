@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เทียบสถิติหมัดต่อหมัด คำนวณความน่าจะเป็น | BoxingFandom</title>
+    <meta name="description" content="ระบบเทียบสถิตินักมวยแบบหมัดต่อหมัด คำนวณความน่าจะเป็น อัตราต่อรอง ฟอร์มการชก มวย ONE Championship">
+    <meta name="keywords" content="วิเคราะห์มวย, เทียบสถิติมวย, อัตราต่อรองมวย, ทำนายผลมวย, BoxingFandom">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="BoxingFandom">
+    <meta property="og:title" content="เทียบสถิติหมัดต่อหมัด | BoxingFandom">
+    <meta property="og:description" content="ระบบเทียบสถิตินักมวยและคำนวณอัตราต่อรองความน่าจะเป็น">
+
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTGDWTKBRG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-RTGDWTKBRG');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7070993370449457" crossorigin="anonymous"></script>
+
+    <style>
+        /* ===== DESIGN TOKENS — ตรงกับ template.html ===== */
+        :root {
+            --primary: #dc2626;
+            --primary-dark: #b91c1c;
+            --blue: #2563eb;
+            --blue-dark: #1d4ed8;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --text-main: #202124;
+            --text-muted: #5f6368;
+            --text-secondary: #3c4043;
+            --border: #e8eaed;
+            --border-hover: #dadce0;
+            --win: #188038;
+            --win-bg: #e6f4ea;
+            --loss: #c5221f;
+            --loss-bg: #fce8e6;
+            --neutral: #80868b;
+            --neutral-bg: #f1f3f4;
+            --gold: #f29900;
+            --dark-header: #202124;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 2px rgba(60,64,67,.1), 0 1px 3px rgba(60,64,67,.08);
+            --shadow-md: 0 1px 6px rgba(60,64,67,.15), 0 2px 8px rgba(60,64,67,.1);
+            --shadow-lg: 0 4px 16px rgba(60,64,67,.12), 0 8px 24px rgba(60,64,67,.08);
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            font-size: 15px;
+        }
+
+        /* ===== HEADER ===== */
+        header.main-header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            height: 64px;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            gap: 16px;
+        }
+
+        .header-logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .header-logo .logo-boxing { font-size: 22px; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .header-logo .logo-fandom { font-size: 22px; font-weight: 800; color: var(--dark-header); letter-spacing: -0.5px; }
+
+        .header-search-wrap { flex: 1; max-width: 580px; position: relative; }
+
+        .header-search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 0 16px;
+            height: 44px;
+            transition: box-shadow .15s, border-color .15s;
+            gap: 10px;
+        }
+        .header-search-box:focus-within { box-shadow: 0 0 0 3px rgba(220,38,38,.12); border-color: var(--primary); background: var(--card); }
+        .header-search-box input[type="text"] { border: none; outline: none; background: transparent; font-family: 'Sarabun'; font-size: 15px; color: var(--text-main); flex: 1; min-width: 0; }
+        .header-search-box input[type="text"]::placeholder { color: var(--text-muted); }
+        .header-search-box button { background: none; border: none; cursor: pointer; color: var(--text-muted); font-size: 16px; padding: 4px; border-radius: 50%; transition: background .15s; }
+        .header-search-box button:hover { background: var(--border); color: var(--text-main); }
+
+        .search-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0; right: 0;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            max-height: 380px;
+            overflow-y: auto;
+            z-index: 3000;
+            display: none;
+        }
+        .search-dropdown-item { padding: 10px 16px; cursor: pointer; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); transition: background .1s; }
+        .search-dropdown-item:last-child { border-bottom: none; }
+        .search-dropdown-item:hover { background: var(--bg); }
+        .search-dropdown-icon { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid var(--border); background: var(--bg); flex-shrink: 0; }
+        .search-dropdown-info { display: flex; flex-direction: column; overflow: hidden; }
+        .search-dropdown-name { font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .search-dropdown-meta { font-size: 12px; color: var(--text-muted); }
+
+        /* ===== MAIN ===== */
+        main { flex: 1; padding: 32px 16px 48px; }
+        .container { max-width: 1060px; margin: 0 auto; }
+
+        /* ===== BREADCRUMB ===== */
+        .page-nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 28px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+        .page-nav a { color: var(--text-muted); text-decoration: none; padding: 5px 10px; border-radius: 16px; transition: background .15s, color .15s; }
+        .page-nav a:hover { background: var(--border); color: var(--text-main); }
+        .page-nav .sep { color: var(--border-hover); }
+        .page-nav .current { color: var(--text-main); font-weight: 600; }
+
+        /* ===== PAGE TITLE ===== */
+        .page-header {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px 40px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+        .page-header h1 { font-size: 26px; font-weight: 800; color: var(--dark-header); margin-bottom: 6px; }
+        .page-header p { color: var(--text-muted); font-size: 14px; }
+
+        /* ===== SECTION CARD ===== */
+        .section-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px 40px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--dark-header);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-title-bar { width: 3px; height: 18px; background: var(--primary); border-radius: 2px; flex-shrink: 0; }
+
+        /* ===== SELECTOR AREA ===== */
+        .selector-area {
+            display: grid;
+            grid-template-columns: 1fr 60px 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .fighter-select-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 24px 20px;
+            text-align: center;
+            transition: border-color .15s;
+        }
+        .fighter-select-card.blue-side { border-top: 3px solid var(--blue); }
+        .fighter-select-card.red-side { border-top: 3px solid var(--primary); }
+
+        .vs-badge {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--text-muted);
+            font-style: italic;
+            text-align: center;
+        }
+
+        .img-compare {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: top center;
+            border: 3px solid var(--card);
+            box-shadow: var(--shadow-md);
+            background: var(--border);
+            margin-bottom: 14px;
+        }
+
+        .fighter-search-wrap { position: relative; width: 100%; margin-top: 4px; }
+
+        .search-input-fighter {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: 'Sarabun';
+            font-size: 14px;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color .15s, box-shadow .15s;
+        }
+        .search-input-fighter:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,.1); }
+        .red-side .search-input-fighter:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(220,38,38,.1); }
+
+        .dropdown-list {
+            position: absolute;
+            top: 100%;
+            left: 0; right: 0;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+            max-height: 240px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+            box-shadow: var(--shadow-md);
+        }
+        .dropdown-list.show { display: block; }
+        .dropdown-item { padding: 10px 14px; cursor: pointer; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--text-main); transition: background .1s; }
+        .dropdown-item:last-child { border-bottom: none; }
+        .dropdown-item:hover { background: #eff6ff; color: var(--blue); }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--bg);
+            border: 1px dashed var(--border-hover);
+            border-radius: var(--radius-md);
+        }
+        .empty-state-icon { font-size: 36px; margin-bottom: 12px; display: block; }
+        .empty-state h3 { font-size: 17px; font-weight: 700; color: var(--dark-header); margin-bottom: 6px; }
+        .empty-state p { color: var(--text-muted); font-size: 14px; }
+
+        /* ===== RESULT: PROBABILITY BAR ===== */
+        .prediction-box {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 32px 40px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+        }
+        .pred-title { font-size: 17px; font-weight: 700; color: var(--dark-header); margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .prob-names { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: 800; font-size: 18px; }
+        .prob-name-blue { color: var(--blue); }
+        .prob-name-red { color: var(--primary); }
+        .prob-bar-container { display: flex; height: 28px; border-radius: 14px; overflow: hidden; background: var(--bg); border: 1px solid var(--border); }
+        .prob-bar-f1 { background: var(--blue); transition: width 1s ease; }
+        .prob-bar-f2 { background: var(--primary); transition: width 1s ease; }
+
+        .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; text-align: left; }
+        .summary-card { background: var(--bg); border: 1px solid var(--border); padding: 20px; border-radius: var(--radius-sm); }
+        .summary-card.f1 { border-left: 3px solid var(--blue); }
+        .summary-card.f2 { border-left: 3px solid var(--primary); }
+        .summary-title { font-weight: 700; color: var(--dark-header); margin-bottom: 12px; display: block; font-size: 14px; }
+        .summary-list { list-style: none; color: var(--text-muted); font-size: 13px; }
+        .summary-list li { margin-bottom: 7px; display: flex; align-items: flex-start; gap: 7px; line-height: 1.5; }
+        .summary-list li::before { content: '✅'; font-size: 11px; flex-shrink: 0; margin-top: 2px; }
+
+        /* ===== STATS TABLE ===== */
+        .comp-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; }
+        .section-header td { padding: 10px 16px; background: #eff6ff; color: var(--blue); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; border-radius: var(--radius-sm); text-align: center; }
+        .row-data { background: var(--card); }
+        .row-data td { padding: 14px 18px; text-align: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); font-size: 15px; }
+        .row-data td:first-child { border-left: 1px solid var(--border); border-radius: var(--radius-sm) 0 0 var(--radius-sm); }
+        .row-data td:last-child { border-right: 1px solid var(--border); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+        .label-name { color: var(--text-muted); font-weight: 600; font-size: 12px; background: var(--bg) !important; width: 20%; }
+        .val-cell { width: 40%; font-size: 15px; font-weight: 700; color: var(--text-main); }
+        .better { color: var(--win); font-weight: 800; }
+        .better-high::after { content: ' ▲'; font-size: 10px; }
+        .better-low::after { content: ' ▼'; font-size: 10px; }
+        .worse { color: var(--neutral); font-weight: 500; }
+        .neutral { color: var(--text-main); }
+
+        /* ===== HISTORY CARDS ===== */
+        .history-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .history-col { background: var(--bg); border: 1px solid var(--border); padding: 20px; border-radius: var(--radius-md); }
+        .history-col h4 { text-align: center; font-size: 14px; font-weight: 700; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 14px; color: var(--dark-header); }
+        .fight-card { background: var(--card); padding: 12px 14px; border-radius: var(--radius-sm); margin-bottom: 10px; border: 1px solid var(--border); border-left: 3px solid var(--border); display: flex; align-items: center; gap: 12px; }
+        .fight-card.win { border-left-color: var(--win); }
+        .fight-card.loss { border-left-color: var(--loss); }
+        .opp-img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; flex-shrink: 0; background: var(--bg); border: 1px solid var(--border); }
+        .fight-card-content { flex: 1; min-width: 0; }
+        .fight-meta { display: flex; justify-content: space-between; margin-bottom: 3px; font-size: 12px; color: var(--text-muted); }
+        .fight-result { font-weight: 700; font-size: 12px; }
+
+        /* ===== PROMO GRAPHIC ===== */
+        .promo-section { margin-top: 0; text-align: center; }
+        .promo-section-title { font-size: 14px; font-weight: 600; color: var(--text-muted); margin-bottom: 16px; }
+        .promo-scroll-wrapper { width: 100%; overflow-x: auto; padding: 8px 0 16px; display: flex; justify-content: center; }
+        .promo-card {
+            width: 800px; min-width: 800px;
+            background: linear-gradient(to bottom, #111827, #000000);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+            color: white;
+            box-shadow: var(--shadow-lg);
+            font-family: 'Sarabun', sans-serif;
+        }
+        .promo-bg-split { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; opacity: 0.15; z-index: 0; }
+        .promo-bg-blue { flex: 1; background: linear-gradient(135deg, #2563eb, transparent); }
+        .promo-bg-red { flex: 1; background: linear-gradient(225deg, #dc2626, transparent); }
+        .promo-content { position: relative; z-index: 10; padding: 36px 30px 24px; }
+        .promo-fighters { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 18px; padding: 0 20px; }
+        .promo-fighter-img { width: 290px; height: 330px; object-fit: contain; object-position: bottom center; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5)); }
+        .promo-stats-row { display: flex; justify-content: space-around; align-items: center; background: rgba(255,255,255,0.05); padding: 14px 0; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .promo-stat-box { text-align: center; }
+        .promo-stat-box .percent { font-size: 2.8rem; font-weight: 900; line-height: 1; }
+        .promo-stat-box .percent.blue { color: #60a5fa; }
+        .promo-stat-box .percent.red { color: #f87171; }
+        .promo-stat-box .label { font-size: 1rem; color: #9ca3af; font-weight: 600; }
+        .promo-vs { font-size: 2rem; font-weight: 900; color: #4b5563; font-style: italic; }
+        .promo-history-section { display: flex; justify-content: space-between; gap: 30px; margin-top: 24px; }
+        .promo-team-history { flex: 1; text-align: center; }
+        .promo-history-title { font-size: 0.85rem; color: #d1d5db; margin-bottom: 8px; font-weight: 600; }
+        .promo-history-grid { display: flex; justify-content: space-between; gap: 6px; }
+        .promo-match-box { background: #fff; color: #111; border-radius: 5px; overflow: hidden; flex: 1; display: flex; flex-direction: column; font-size: 0.75rem; }
+        .promo-match-res { padding: 5px; font-weight: 800; color: white; text-align: center; }
+        .promo-match-res.W { background: #16a34a; }
+        .promo-match-res.L { background: #dc2626; }
+        .promo-match-res.D { background: #d97706; }
+        .promo-match-opp { padding: 6px 4px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center; }
+        .promo-footer-note { text-align: center; margin-top: 20px; font-size: 0.75rem; color: #6b7280; letter-spacing: 1px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; }
+
+        .btn-download {
+            margin-top: 16px;
+            background: var(--gold);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            font-family: 'Sarabun';
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .15s;
+        }
+        .btn-download:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(242,153,0,.3); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: auto;
+        }
+        footer nav ul { justify-content: center; list-style: none; display: flex; padding: 0; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+        footer nav ul li a { color: var(--text-muted); text-decoration: none; font-size: 13px; padding: 4px 10px; border-radius: 16px; transition: background .15s, color .15s; display: block; }
+        footer nav ul li a:hover { background: var(--bg); color: var(--text-main); }
+        footer p { font-size: 12px; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header.main-header { padding: 0 16px; }
+            main { padding: 20px 12px 40px; }
+            .section-card, .page-header, .prediction-box { padding: 24px 20px; }
+            .selector-area { grid-template-columns: 1fr; gap: 12px; }
+            .vs-badge { font-size: 16px; }
+            .history-grid, .summary-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+        <a href="../../index.html" class="header-logo">
+            <span class="logo-boxing">Boxing</span><span class="logo-fandom">Fandom</span>
+        </a>
+        <div class="header-search-wrap">
+            <div class="header-search-box">
+                <span style="color:var(--text-muted);">🔍</span>
+                <input type="text" id="globalSearchInput" placeholder="ค้นหานักมวย..." autocomplete="off">
+                <button type="button" id="globalSearchBtn">⏎</button>
+            </div>
+            <div id="globalSearchDropdown" class="search-dropdown"></div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+        <div class="container">
+
+            <!-- Breadcrumb -->
+            <div class="page-nav">
+                <a href="../../index.html">← หน้าแรก</a>
+                <span class="sep">/</span>
+                <span class="current">📊 เทียบสถิติหมัดต่อหมัด</span>
+            </div>
+
+            <!-- Page Title -->
+            <div class="page-header">
+                <h1>📊 ระบบเทียบสถิติหมัดต่อหมัด</h1>
+                <p>เลือกนักมวยทั้ง 2 มุม เพื่อเปรียบเทียบสถิติและคำนวณความน่าจะเป็นเชิงลึก V5.3</p>
+            </div>
+
+            <!-- Fighter Selector -->
+            <div class="section-card">
+                <h2 class="section-title"><span class="section-title-bar"></span> เลือกนักมวยเพื่อเปรียบเทียบ</h2>
+                <div class="selector-area">
+                    <div class="fighter-select-card blue-side">
+                        <div id="img-p1"><img src="../../assets/images/noname.jpg" class="img-compare" alt="มุมน้ำเงิน"></div>
+                        <div style="font-size:12px; font-weight:700; color:#2563eb; text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">มุมน้ำเงิน</div>
+                        <div class="fighter-search-wrap">
+                            <input type="text" id="search1" class="search-input-fighter" placeholder="🔍 ค้นหานักมวย..." autocomplete="off" oninput="filterList(1)" onclick="toggleList(1, true)">
+                            <div id="list1" class="dropdown-list"></div>
+                        </div>
+                    </div>
+
+                    <div class="vs-badge">VS</div>
+
+                    <div class="fighter-select-card red-side">
+                        <div id="img-p2"><img src="../../assets/images/noname.jpg" class="img-compare" alt="มุมแดง"></div>
+                        <div style="font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:.5px; margin-bottom:8px;">มุมแดง</div>
+                        <div class="fighter-search-wrap">
+                            <input type="text" id="search2" class="search-input-fighter" placeholder="🔍 ค้นหานักมวย..." autocomplete="off" oninput="filterList(2)" onclick="toggleList(2, true)">
+                            <div id="list2" class="dropdown-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result view -->
+            <div id="result-view">
+                <div class="empty-state">
+                    <span class="empty-state-icon">🥊</span>
+                    <h3>พร้อมทำการเทียบสถิติเชิงลึก</h3>
+                    <p>เลือกนักมวยทั้งมุมน้ำเงินและมุมแดง เพื่อเริ่มระบบเปรียบเทียบข้อมูล</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="#">นโยบายความเป็นส่วนตัว</a></li>
+                <li><a href="#">เกี่ยวกับฉัน</a></li>
+                <li><a href="#">ติดต่อ</a></li>
+            </ul>
+        </nav>
+        <p>© 2026 สงวนลิขสิทธิ์ BoxingFandom</p>
+    </footer>
+
+    <script>
+        let db = [];
+        let selectedFighter1 = null;
+        let selectedFighter2 = null;
+
+        /* ===== Cloudinary URL ===== */
+        function getCloudinaryUrl(imgId, w, h) {
+            if (!imgId || imgId === "ไม่ระบุ" || imgId === "ยังไม่มีข้อมูล" || imgId.trim() === "" || imgId === "noname") return "../../assets/images/noname.jpg";
+            if (imgId.startsWith('http') || imgId.includes('assets/')) return imgId;
+            let clean = imgId.replace(/\.(jpg|jpeg|png|webp)$/i, '');
+            return `https://res.cloudinary.com/dpvyl7nan/image/upload/c_fill,g_face,h_${h},w_${w},f_auto,q_auto/v1/${encodeURIComponent(clean)}`;
+        }
+
+        /* ===== Days since fight ===== */
+        function daysSince(dateStr) {
+            if (!dateStr || dateStr === "ไม่ระบุ" || dateStr === "-") return "-";
+            const months = { Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11 };
+            const parts = dateStr.match(/(\w+)\s+(\d+),\s+(\d+)/);
+            if (parts) {
+                const d = new Date(parseInt(parts[3]), months[parts[1]], parseInt(parts[2]));
+                if (!isNaN(d)) return Math.ceil(Math.abs(new Date() - d) / 86400000);
+            }
+            const slash = dateStr.split('/');
+            if (slash.length === 3) {
+                const d = new Date(slash[2], slash[1] - 1, slash[0]);
+                if (!isNaN(d)) return Math.ceil(Math.abs(new Date() - d) / 86400000);
+            }
+            return "-";
+        }
+
+        /* ===== Init — load fighter DB ===== */
+        async function init() {
+            try {
+                const listRes = await fetch('../../data/boxers/fighters-list.json');
+                const files = await listRes.json();
+                const fetchPromises = files.map(async (f) => {
+                    try {
+                        const res = await fetch(`../../data/boxers/${encodeURIComponent(f.trim())}`);
+                        if (res.ok) { const d = await res.json(); return { ...d, fileName: f }; }
+                    } catch (e) {}
+                    return null;
+                });
+                db = (await Promise.all(fetchPromises)).filter(x => x !== null);
+                renderDropdownList(1, db);
+                renderDropdownList(2, db);
+            } catch (e) { console.error("Init Error:", e); }
+        }
+
+        /* ===== Header Search ===== */
+        const gsi = document.getElementById('globalSearchInput');
+        const gsb = document.getElementById('globalSearchBtn');
+        const gsd = document.getElementById('globalSearchDropdown');
+
+        gsi.addEventListener('input', function () {
+            const q = this.value.toLowerCase().trim();
+            if (!q) { gsd.style.display = 'none'; return; }
+            const matched = db.filter(x => (x.fighter_profile?.name_th || '').toLowerCase().includes(q) || (x.fighter_profile?.name_en || '').toLowerCase().includes(q)).slice(0, 7);
+            if (!matched.length) { gsd.innerHTML = '<div style="padding:14px;text-align:center;color:#888;font-size:14px;">ไม่พบนักมวย</div>'; gsd.style.display = 'block'; return; }
+            gsd.innerHTML = matched.map(x => {
+                const p = x.fighter_profile || {};
+                return `<a href="../fighter/${encodeURIComponent(x.fileName.replace('.json','.html'))}" class="search-dropdown-item">
+                    <img src="${getCloudinaryUrl(p.image_url,40,40)}" class="search-dropdown-icon" onerror="this.src='../../assets/images/noname.jpg'">
+                    <div class="search-dropdown-info"><span class="search-dropdown-name">${p.name_th}</span><span class="search-dropdown-meta">รุ่น: ${p.physical_stats?.division || '-'}</span></div>
+                </a>`;
+            }).join('');
+            gsd.style.display = 'block';
+        });
+        document.addEventListener('click', (e) => { if (!e.target.closest('.header-search-wrap')) gsd.style.display = 'none'; });
+
+        /* ===== Fighter Dropdown ===== */
+        function filterList(side) {
+            const q = document.getElementById(`search${side}`).value.toLowerCase();
+            const filtered = db.filter(x => (x.fighter_profile?.name_th || '').toLowerCase().includes(q) || (x.fighter_profile?.alias || '').toLowerCase().includes(q));
+            renderDropdownList(side, filtered);
+            toggleList(side, true);
+        }
+
+        function renderDropdownList(side, arr) {
+            const el = document.getElementById(`list${side}`);
+            if (!arr.length) { el.innerHTML = `<div class="dropdown-item">ไม่พบข้อมูล</div>`; return; }
+            el.innerHTML = arr.map(x => `<div class="dropdown-item" onclick="selectFighter(${side},'${x.fileName}')">${x.fighter_profile?.name_th || 'ไม่ระบุ'}</div>`).join('');
+        }
+
+        function toggleList(side, show) { document.getElementById(`list${side}`).classList.toggle('show', show); }
+
+        function selectFighter(side, fileName) {
+            const fighter = db.find(x => x.fileName === fileName);
+            if (!fighter) return;
+            document.getElementById(`search${side}`).value = fighter.fighter_profile?.name_th || fileName;
+            const imgUrl = getCloudinaryUrl(fighter.fighter_profile?.image_url, 150, 150);
+            document.getElementById(`img-p${side}`).innerHTML = `<img src="${imgUrl}" class="img-compare" onerror="this.src='../../assets/images/noname.jpg'">`;
+            toggleList(side, false);
+            if (side === 1) selectedFighter1 = fighter;
+            else selectedFighter2 = fighter;
+            if (selectedFighter1 && selectedFighter2) runComparison();
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.fighter-search-wrap')) {
+                document.getElementById('list1').classList.remove('show');
+                document.getElementById('list2').classList.remove('show');
+            }
+        });
+
+        /* ===== Calculate Stats Score ===== */
+        function calculateStatsScore(f1, f2) {
+            const p1 = f1.fighter_profile || {}, p2 = f2.fighter_profile || {};
+            const st1 = p1.performance_stats || {}, st2 = p2.performance_stats || {};
+            const ph1 = p1.physical_stats || {}, ph2 = p2.physical_stats || {};
+            let score1 = 1000, score2 = 1000;
+            let summary1 = [], summary2 = [];
+
+            const gradeMap = { "S": 100, "A+": 90, "A": 85, "B+": 80, "B": 75, "C+": 70, "C": 65 };
+            const g1 = gradeMap[p1.grade] || 70, g2 = gradeMap[p2.grade] || 70;
+            score1 += (g1 - g2) * 4; score2 += (g2 - g1) * 4;
+            if (g1 > g2 + 5) summary1.push(`ระดับเกรด (${p1.grade}) ดีกว่า`);
+            else if (g2 > g1 + 5) summary2.push(`ระดับเกรด (${p2.grade}) ดีกว่า`);
+
+            const acc1 = parseFloat(st1.significant_strike_accuracy?.overall_accuracy_percentage) || 0;
+            const acc2 = parseFloat(st2.significant_strike_accuracy?.overall_accuracy_percentage) || 0;
+            if (Math.abs(acc1 - acc2) >= 5) {
+                if (acc1 > acc2) { score1 += (acc1 - acc2) * 8; summary1.push(`แม่นยำการโจมตีสูงกว่า (${acc1}%)`); }
+                else { score2 += (acc2 - acc1) * 8; summary2.push(`แม่นยำการโจมตีสูงกว่า (${acc2}%)`); }
+            }
+
+            const spm1 = parseFloat(st1.significant_strikes_per_minute?.total_per_minute) || 0;
+            const spm2 = parseFloat(st2.significant_strikes_per_minute?.total_per_minute) || 0;
+            if (Math.abs(spm1 - spm2) >= 2) {
+                if (spm1 > spm2) { score1 += (spm1 - spm2) * 30; summary1.push(`ออกอาวุธถี่กว่า (${spm1}/นาที)`); }
+                else { score2 += (spm2 - spm1) * 30; summary2.push(`ออกอาวุธถี่กว่า (${spm2}/นาที)`); }
+            }
+
+            const def1 = parseFloat(st1.defensive_stats?.overall_defense_percentage) || 0;
+            const def2 = parseFloat(st2.defensive_stats?.overall_defense_percentage) || 0;
+            if (Math.abs(def1 - def2) >= 5) {
+                if (def1 > def2) { score1 += (def1 - def2) * 6; summary1.push(`ป้องกันดีกว่า (${def1}%)`); }
+                else { score2 += (def2 - def1) * 6; summary2.push(`ป้องกันดีกว่า (${def2}%)`); }
+            }
+
+            const a1 = parseInt(p1.personal_info?.age) || 28, a2 = parseInt(p2.personal_info?.age) || 28;
+            if (a1 < a2) summary1.push(`อายุน้อยกว่า (${a1} ปี)`);
+            else if (a2 < a1) summary2.push(`อายุน้อยกว่า (${a2} ปี)`);
+
+            const h1 = parseFloat(ph1.height_cm) || 170, h2 = parseFloat(ph2.height_cm) || 170;
+            if (h1 > h2) summary1.push(`สูงกว่า (${h1} ซม.)`);
+            else if (h2 > h1) summary2.push(`สูงกว่า (${h2} ซม.)`);
+
+            const w1 = parseFloat(ph1.weight_lbs) || 0, w2 = parseFloat(ph2.weight_lbs) || 0;
+            if (w1 > 0) summary1.push(`ชั่งล่าสุด ${w1} ปอนด์`);
+            if (w2 > 0) summary2.push(`ชั่งล่าสุด ${w2} ปอนด์`);
+
+            const getNotableWins = (history) => (history || []).slice(0,3).filter(f => (f.result||'').toLowerCase() === 'win').map(f => f.opponent_th || f.opponent_en).filter(Boolean);
+            const wins1 = getNotableWins(f1.fight_history || f1.fight_history_one_championship);
+            const wins2 = getNotableWins(f2.fight_history || f2.fight_history_one_championship);
+            if (wins1.length > 0) summary1.push(`ฟอร์มสด ชนะ ${wins1.slice(0,2).join(', ')}`);
+            if (wins2.length > 0) summary2.push(`ฟอร์มสด ชนะ ${wins2.slice(0,2).join(', ')}`);
+
+            const hist1 = f1.fight_history || f1.fight_history_one_championship;
+            const hist2 = f2.fight_history || f2.fight_history_one_championship;
+            if (hist1 && hist1.length > 0) { const d = daysSince(hist1[0].date); if (d !== "-") summary1.push(`เว้นช่วงชก ${d} วัน`); }
+            if (hist2 && hist2.length > 0) { const d = daysSince(hist2[0].date); if (d !== "-") summary2.push(`เว้นช่วงชก ${d} วัน`); }
+
+            let prob1 = (score1 / (score1 + score2)) * 100, prob2 = (score2 / (score1 + score2)) * 100;
+            if (prob1 > 90) { prob1 = 90; prob2 = 10; }
+            if (prob2 > 90) { prob2 = 90; prob1 = 10; }
+            return { prob1: prob1.toFixed(0), prob2: prob2.toFixed(0), summary1: summary1.slice(0, 5), summary2: summary2.slice(0, 5) };
+        }
+
+        function compareValues(v1, v2, type) {
+            if (type === 'none' || !v1 || !v2 || v1 === '-' || v2 === '-') return ['neutral', 'neutral'];
+            const n1 = parseFloat(v1), n2 = parseFloat(v2);
+            if (isNaN(n1) || isNaN(n2) || n1 === n2) return ['neutral', 'neutral'];
+            if (type === 'high') return n1 > n2 ? ['better better-high', 'worse'] : ['worse', 'better better-high'];
+            return n1 < n2 ? ['better better-low', 'worse'] : ['worse', 'better better-low'];
+        }
+
+        function renderHistoryCards(historyArray) {
+            if (!historyArray || !historyArray.length) return `<div style="text-align:center;padding:20px;color:var(--text-muted);font-size:14px;">ไม่มีข้อมูล</div>`;
+            return historyArray.slice(0, 3).map(f => {
+                const res = (f.result || '').toLowerCase();
+                const oppName = f.opponent_th || f.opponent_en || "";
+                let oppImg = '../../assets/images/noname.jpg';
+                if (oppName) {
+                    const od = db.find(x => (x.fighter_profile?.name_th || '').includes(oppName));
+                    if (od?.fighter_profile?.image_url) oppImg = getCloudinaryUrl(od.fighter_profile.image_url, 60, 60);
+                }
+                const days = daysSince(f.date);
+                return `<div class="fight-card ${res === 'win' ? 'win' : 'loss'}">
+                    <img src="${oppImg}" class="opp-img" onerror="this.src='../../assets/images/noname.jpg';">
+                    <div class="fight-card-content">
+                        <div class="fight-meta">
+                            <span>📅 ${f.date || '-'}${days !== '-' ? ` (${days} วันก่อน)` : ''}</span>
+                            <span class="fight-result" style="color:${res==='win'?'var(--win)':'var(--loss)'}">${res === 'win' ? 'ชนะ' : 'แพ้'}</span>
+                        </div>
+                        <div style="font-weight:600;font-size:14px;">${oppName || 'ไม่ระบุ'}</div>
+                        <div style="color:var(--text-muted);font-size:12px;">วิธี: ${f.method_th || f.method_en || '-'} ${f.round && f.round !== "ไม่ระบุ" ? `ยก ${f.round}` : ''}</div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        /* ===== Download Promo ===== */
+        function downloadPromo() {
+            const el = document.getElementById('capture-area');
+            if (!el) return;
+            html2canvas(el, { useCORS: true, scale: 2, backgroundColor: "#000000", scrollX: 0, scrollY: -window.scrollY })
+                .then(canvas => {
+                    const a = document.createElement('a');
+                    a.download = 'boxingfandom_matchup.jpg';
+                    a.href = canvas.toDataURL('image/jpeg', 0.9);
+                    a.click();
+                }).catch(() => alert("เกิดข้อผิดพลาดในการโหลดรูป กรุณาลองใหม่"));
+        }
+
+        /* ===== Run Comparison ===== */
+        function runComparison() {
+            const view = document.getElementById('result-view');
+            if (!selectedFighter1 || !selectedFighter2) return;
+            const calc = calculateStatsScore(selectedFighter1, selectedFighter2);
+            const p1 = selectedFighter1.fighter_profile || {}, p2 = selectedFighter2.fighter_profile || {};
+            const s1 = p1.physical_stats || {}, s2 = p2.physical_stats || {};
+            const st1 = p1.performance_stats || {}, st2 = p2.performance_stats || {};
+            const history1 = selectedFighter1.fight_history || selectedFighter1.fight_history_one_championship || [];
+            const history2 = selectedFighter2.fight_history || selectedFighter2.fight_history_one_championship || [];
+
+            const row = (label, v1r, v2r, type = 'high', unit = '') => {
+                const c = (v) => (!v && v !== 0) || v === "ยังไม่มีข้อมูล" ? "-" : v;
+                const v1 = c(v1r), v2 = c(v2r);
+                const cls = compareValues(v1, v2, type);
+                return `<tr class="row-data">
+                    <td class="val-cell ${cls[0]}">${v1}${v1 !== '-' ? `<small style="font-weight:normal;font-size:11px;color:var(--text-muted);"> ${unit}</small>` : ''}</td>
+                    <td class="label-name">${label}</td>
+                    <td class="val-cell ${cls[1]}">${v2}${v2 !== '-' ? `<small style="font-weight:normal;font-size:11px;color:var(--text-muted);"> ${unit}</small>` : ''}</td>
+                </tr>`;
+            };
+            const hdr = (title) => `<tr class="section-header"><td colspan="3">${title}</td></tr>`;
+            const renderSummaryList = (s) => s.length > 0 ? `<ul class="summary-list">${s.map(x => `<li>${x}</li>`).join('')}</ul>` : `<div style="color:var(--text-muted);font-size:13px;">สูสีกันมาก ไม่มีจุดเด่นชัดเจน</div>`;
+
+            /* Promo graphic */
+            const generatePromoHistory = (history) => {
+                if (!history || !history.length) return '<div style="color:#6b7280;padding:10px;">-</div>';
+                const last5 = history.slice(0, 5);
+                while (last5.length < 5) last5.push(null);
+                return last5.map(f => {
+                    if (!f) return `<div class="promo-match-box" style="opacity:.3;"><div class="promo-match-res" style="background:#9ca3af;">-</div><div class="promo-match-opp">-</div></div>`;
+                    const r = (f.result || '').toLowerCase();
+                    const opp = (f.opponent_th || f.opponent_en || '-').split(' ')[0];
+                    return `<div class="promo-match-box"><div class="promo-match-res ${r==='win'?'W':'L'}">${r==='win'?'W':'L'}</div><div class="promo-match-opp">${opp}</div></div>`;
+                }).join('');
+            };
+
+            view.innerHTML = `
+                <!-- Probability -->
+                <div class="prediction-box">
+                    <div class="pred-title"><span class="section-title-bar" style="height:20px;"></span> ความน่าจะเป็นจากการคำนวณสถิติ</div>
+                    <div class="prob-names">
+                        <span class="prob-name-blue">${p1.name_th} (${calc.prob1}%)</span>
+                        <span class="prob-name-red">${p2.name_th} (${calc.prob2}%)</span>
+                    </div>
+                    <div class="prob-bar-container">
+                        <div class="prob-bar-f1" style="width:${calc.prob1}%;"></div>
+                        <div class="prob-bar-f2" style="width:${calc.prob2}%;"></div>
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-card f1">
+                            <span class="summary-title">จุดเด่น: ${p1.name_th}</span>
+                            ${renderSummaryList(calc.summary1)}
+                        </div>
+                        <div class="summary-card f2">
+                            <span class="summary-title">จุดเด่น: ${p2.name_th}</span>
+                            ${renderSummaryList(calc.summary2)}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Table -->
+                <div class="section-card">
+                    <h2 class="section-title"><span class="section-title-bar"></span> เปรียบเทียบสถิติรายละเอียด</h2>
+                    <table class="comp-table">
+                        ${hdr('ข้อมูลพื้นฐาน')}
+                        ${row('ระดับเกรด', p1.grade, p2.grade, 'none')}
+                        ${row('อายุ (ปี)', p1.personal_info?.age, p2.personal_info?.age, 'low')}
+                        ${row('สไตล์การชก', p1.fighting_style_th, p2.fighting_style_th, 'none')}
+                        ${hdr('สัดส่วนร่างกาย')}
+                        ${row('ส่วนสูง', s1.height_cm, s2.height_cm, 'high', 'ซม.')}
+                        ${row('น้ำหนักล่าสุด', s1.weight_lbs, s2.weight_lbs, 'high', 'lbs')}
+                        ${row('ระยะเอื้อมมือ', s1.reach_cm, s2.reach_cm, 'high', 'ซม.')}
+                        ${hdr('ความถี่การโจมตี (ต่อนาที)')}
+                        ${row('ออกอาวุธรวม', st1.significant_strikes_per_minute?.total_per_minute, st2.significant_strikes_per_minute?.total_per_minute, 'high', '/นาที')}
+                        ${row('แม่นยำรวม', st1.significant_strike_accuracy?.overall_accuracy_percentage, st2.significant_strike_accuracy?.overall_accuracy_percentage, 'high', '%')}
+                        ${hdr('เกมป้องกัน')}
+                        ${row('ป้องกันรวม', st1.defensive_stats?.overall_defense_percentage, st2.defensive_stats?.overall_defense_percentage, 'high', '%')}
+                    </table>
+                </div>
+
+                <!-- Fight History -->
+                <div class="section-card">
+                    <h2 class="section-title"><span class="section-title-bar"></span> ฟอร์มการชก 3 ไฟต์หลังสุด</h2>
+                    <div class="history-grid">
+                        <div class="history-col"><h4 style="color:#2563eb;">${p1.name_th || 'มุมน้ำเงิน'}</h4>${renderHistoryCards(history1)}</div>
+                        <div class="history-col"><h4 style="color:var(--primary);">${p2.name_th || 'มุมแดง'}</h4>${renderHistoryCards(history2)}</div>
+                    </div>
+                </div>
+
+                <!-- Promo Graphic -->
+                <div class="section-card">
+                    <h2 class="section-title"><span class="section-title-bar"></span> ภาพสรุปสถิติ (สำหรับแชร์)</h2>
+                    <div class="promo-section">
+                        <div class="promo-scroll-wrapper">
+                            <div class="promo-card" id="capture-area">
+                                <div class="promo-bg-split"><div class="promo-bg-blue"></div><div class="promo-bg-red"></div></div>
+                                <div class="promo-content">
+                                    <div class="promo-fighters">
+                                        <img src="${getCloudinaryUrl(p1.image_url,400,500)}" class="promo-fighter-img" alt="Blue" onerror="this.src='../../assets/images/noname.jpg'" crossorigin="anonymous">
+                                        <img src="${getCloudinaryUrl(p2.image_url,400,500)}" class="promo-fighter-img" style="transform:scaleX(-1);" alt="Red" onerror="this.src='../../assets/images/noname.jpg'" crossorigin="anonymous">
+                                    </div>
+                                    <div class="promo-stats-row">
+                                        <div class="promo-stat-box"><div class="percent blue">${calc.prob1}%</div><div class="label">WIN PROBABILITY</div></div>
+                                        <div class="promo-vs">VS</div>
+                                        <div class="promo-stat-box"><div class="percent red">${calc.prob2}%</div><div class="label">WIN PROBABILITY</div></div>
+                                    </div>
+                                    <div class="promo-history-section">
+                                        <div class="promo-team-history"><div class="promo-history-title">5 ไฟต์ล่าสุด: ${p1.name_th}</div><div class="promo-history-grid">${generatePromoHistory(history1)}</div></div>
+                                        <div class="promo-team-history"><div class="promo-history-title">5 ไฟต์ล่าสุด: ${p2.name_th}</div><div class="promo-history-grid">${generatePromoHistory(history2)}</div></div>
+                                    </div>
+                                    <div class="promo-footer-note">WWW.BOXINGFANDOM.COM | STATS PREDICTION V5.3</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="downloadPromo()" class="btn-download">⬇️ บันทึกรูปภาพ (Save Image)</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

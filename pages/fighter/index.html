@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>นักมวยทั้งหมด | BoxingFandom</title>
+  <meta name="description" content="รายชื่อนักมวยไทย ONE Championship พร้อมสถิติและข้อมูลเชิงลึก">
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red:    #dc2626;
+      --red-d:  #b91c1c;
+      --navy:   #0f172a;
+      --navy-2: #1e293b;
+      --white:  #ffffff;
+      --bg:     #f8fafc;
+      --border: #e2e8f0;
+      --muted:  #64748b;
+      --text:   #1e293b;
+      --win:    #16a34a;
+      --loss:   #dc2626;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Sarabun',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; display:flex; flex-direction:column; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; }
+
+    /* HEADER */
+    header { background:var(--navy); border-bottom:3px solid var(--red); position:sticky; top:0; z-index:100; }
+    .header-inner { max-width:1280px; margin:0 auto; padding:0 24px; height:60px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .logo { font-size:22px; font-weight:900; letter-spacing:-0.5px; flex-shrink:0; }
+    .logo .r { color:var(--red); }
+    .logo .w { color:var(--white); }
+    .search-wrap { position:relative; display:flex; }
+    .search-wrap input { background:var(--navy-2); border:1px solid #334155; color:#fff; padding:7px 14px; border-radius:6px 0 0 6px; font-family:'Sarabun',sans-serif; font-size:14px; width:200px; outline:none; transition:0.2s; }
+    .search-wrap input::placeholder { color:#64748b; }
+    .search-wrap input:focus { background:#fff; color:var(--text); border-color:var(--red); }
+    .search-wrap button { background:var(--red); color:#fff; border:none; padding:7px 14px; border-radius:0 6px 6px 0; font-family:'Sarabun',sans-serif; font-size:14px; font-weight:600; cursor:pointer; transition:0.2s; }
+    .search-wrap button:hover { background:var(--red-d); }
+    .search-drop { position:absolute; top:calc(100% + 6px); right:0; width:280px; background:#fff; border:1px solid var(--border); border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,0.1); max-height:340px; overflow-y:auto; display:none; z-index:999; }
+    .drop-item { display:flex; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--border); transition:0.15s; }
+    .drop-item:last-child { border-bottom:none; }
+    .drop-item:hover { background:var(--bg); }
+    .drop-item img { width:38px; height:38px; border-radius:50%; object-fit:cover; background:var(--bg); flex-shrink:0; }
+    .drop-name { font-weight:700; font-size:14px; }
+    .drop-meta { font-size:12px; color:var(--muted); }
+
+    /* MAIN */
+    main { flex:1; max-width:1280px; margin:0 auto; padding:40px 24px; width:100%; }
+
+    /* TOP BAR */
+    .top-bar { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; flex-wrap:wrap; gap:16px; }
+    .page-title { font-size:24px; font-weight:800; color:var(--navy); display:flex; align-items:center; gap:10px; }
+    .page-title::before { content:''; display:block; width:5px; height:24px; background:var(--red); border-radius:3px; }
+    .count-badge { background:var(--red); color:#fff; font-size:12px; font-weight:700; padding:3px 10px; border-radius:20px; }
+
+    /* FILTER BAR */
+    .filter-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
+    .filter-btn { padding:7px 16px; border-radius:20px; font-family:'Sarabun',sans-serif; font-size:13px; font-weight:600; border:1px solid var(--border); background:#fff; color:var(--muted); cursor:pointer; transition:0.2s; }
+    .filter-btn:hover { border-color:var(--red); color:var(--red); }
+    .filter-btn.active { background:var(--red); color:#fff; border-color:var(--red); }
+
+    /* INLINE SEARCH */
+    .inline-search { position:relative; flex:1; max-width:300px; }
+    .inline-search input { width:100%; padding:8px 14px 8px 36px; border:1px solid var(--border); border-radius:8px; font-family:'Sarabun',sans-serif; font-size:14px; outline:none; background:#fff; transition:0.2s; }
+    .inline-search input:focus { border-color:var(--red); }
+    .inline-search .icon { position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--muted); font-size:14px; pointer-events:none; }
+
+    /* GRID */
+    .fighters-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:18px; margin-bottom:32px; }
+
+    .fighter-card { background:#fff; border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:all 0.2s; display:block; }
+    .fighter-card:hover { transform:translateY(-4px); box-shadow:0 12px 28px rgba(0,0,0,0.08); border-color:var(--red); }
+    .fighter-card.hidden { display:none; }
+
+    .card-img { width:100%; height:190px; object-fit:cover; object-position:top; background:var(--bg); display:block; }
+    .card-body { padding:12px 14px; }
+    .card-name { font-size:15px; font-weight:700; color:var(--navy); margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .card-alias { font-size:12px; color:var(--muted); margin-bottom:8px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-height:18px; }
+    .card-record { font-size:13px; font-weight:600; margin-bottom:8px; color:var(--muted); }
+    .card-record .w { color:var(--win); }
+    .card-record .l { color:var(--loss); }
+    .card-footer { display:flex; align-items:center; justify-content:space-between; }
+    .div-badge { background:var(--bg); color:var(--muted); font-size:11px; font-weight:600; padding:3px 8px; border-radius:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:110px; }
+    .grade-badge { font-size:12px; font-weight:800; color:var(--win); }
+    .grade-badge.na { color:#cbd5e1; }
+
+    /* SKELETON */
+    .skeleton { background:linear-gradient(90deg,#f1f5f9 25%,#e2e8f0 50%,#f1f5f9 75%); background-size:200% 100%; animation:shimmer 1.2s infinite; border-radius:8px; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+    .skel-card { background:#fff; border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+    .skel-img { width:100%; height:190px; }
+    .skel-line { height:13px; margin:8px 14px; }
+    .skel-line.s { width:55%; }
+
+    /* LOAD MORE */
+    .load-more-wrap { text-align:center; }
+    .load-more-btn { display:inline-flex; align-items:center; gap:8px; padding:12px 32px; background:#fff; border:1px solid var(--border); border-radius:8px; font-family:'Sarabun',sans-serif; font-size:14px; font-weight:600; color:var(--text); cursor:pointer; transition:0.2s; }
+    .load-more-btn:hover { background:var(--bg); border-color:#cbd5e1; }
+    .load-more-btn.hidden { display:none; }
+
+    /* EMPTY */
+    .empty { text-align:center; padding:60px 20px; color:var(--muted); grid-column:1/-1; }
+    .empty span { font-size:36px; display:block; margin-bottom:10px; }
+
+    /* FOOTER */
+    footer { background:var(--navy); color:#475569; padding:28px 24px; text-align:center; margin-top:auto; border-top:1px solid var(--navy-2); }
+    footer p { font-size:13px; }
+    footer a { color:#64748b; transition:0.2s; }
+    footer a:hover { color:#fff; }
+
+    @media (max-width:768px) {
+      .search-wrap input { width:140px; }
+      main { padding:24px 16px; }
+      .fighters-grid { grid-template-columns:repeat(2,1fr); gap:12px; }
+      .filter-bar { gap:6px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <a href="../../index.html" class="logo"><span class="r">Boxing</span><span class="w">Fandom</span></a>
+      <div class="search-wrap">
+        <input type="text" id="headerSearch" placeholder="ค้นหานักมวย..." autocomplete="off">
+        <button onclick="doHeaderSearch()">ค้นหา</button>
+        <div id="headerDrop" class="search-drop"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <div class="top-bar">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div class="page-title">นักมวยทั้งหมด</div>
+        <span class="count-badge" id="countBadge">—</span>
+      </div>
+      <div class="inline-search">
+        <span class="icon">🔍</span>
+        <input type="text" id="inlineSearch" placeholder="กรองชื่อ..." oninput="filterInline()">
+      </div>
+    </div>
+
+    <!-- FILTER -->
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" data-div="all" onclick="setFilter(this)">ทั้งหมด</button>
+      <button class="filter-btn" data-div="Atomweight" onclick="setFilter(this)">อะตอมเวต</button>
+      <button class="filter-btn" data-div="Strawweight" onclick="setFilter(this)">สตรอว์เวต</button>
+      <button class="filter-btn" data-div="Flyweight" onclick="setFilter(this)">ฟลายเวต</button>
+      <button class="filter-btn" data-div="Bantamweight" onclick="setFilter(this)">แบนตัมเวต</button>
+      <button class="filter-btn" data-div="Featherweight" onclick="setFilter(this)">เฟเธอร์เวต</button>
+      <button class="filter-btn" data-div="Lightweight" onclick="setFilter(this)">ไลต์เวต</button>
+      <button class="filter-btn" data-div="Welterweight" onclick="setFilter(this)">เวลเตอร์เวต</button>
+      <button class="filter-btn" data-div="Middleweight" onclick="setFilter(this)">มิดเดิลเวต</button>
+    </div>
+
+    <!-- GRID -->
+    <div class="fighters-grid" id="grid">
+      <div class="skel-card"><div class="skeleton skel-img"></div><div class="skeleton skel-line" style="margin-top:12px"></div><div class="skeleton skel-line s"></div><div style="height:12px"></div></div>
+      <div class="skel-card"><div class="skeleton skel-img"></div><div class="skeleton skel-line" style="margin-top:12px"></div><div class="skeleton skel-line s"></div><div style="height:12px"></div></div>
+      <div class="skel-card"><div class="skeleton skel-img"></div><div class="skeleton skel-line" style="margin-top:12px"></div><div class="skeleton skel-line s"></div><div style="height:12px"></div></div>
+      <div class="skel-card"><div class="skeleton skel-img"></div><div class="skeleton skel-line" style="margin-top:12px"></div><div class="skeleton skel-line s"></div><div style="height:12px"></div></div>
+    </div>
+
+    <!-- LOAD MORE -->
+    <div class="load-more-wrap">
+      <button class="load-more-btn hidden" id="loadMoreBtn" onclick="loadMore()">
+        ⬇️ โหลดเพิ่มเติม <span id="remainCount"></span>
+      </button>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <a href="../../index.html">BoxingFandom</a> · ข้อมูลสถิตินักมวยไทย ONE Championship</p>
+  </footer>
+
+  <script>
+    const INIT_SHOW = 15;
+    const LOAD_MORE = 15;
+
+    function imgUrl(id, w, h) {
+      if (!id || id==='ไม่ระบุ' || id==='ยังไม่มีข้อมูล' || !id.trim() || id==='noname') return '../../assets/images/noname.jpg';
+      if (id.startsWith('http') || id.startsWith('../../')) return id;
+      
+      // 🛠️ แก้ไขที่ 1: เปลี่ยนจาก encodeURIComponent เป็น encodeURI
+      let clean = id.trim().replace(/\.(jpg|jpeg|png|webp)$/i, '');
+      return `https://res.cloudinary.com/dpvyl7nan/image/upload/c_fill,g_face,h_${h},w_${w},f_auto,q_auto/v1/${encodeURI(clean)}`;
+    }
+
+    let allFighters = [];
+    let filtered    = [];
+    let shown       = 0;
+    let activeDiv   = 'all';
+    let inlineQ     = '';
+
+    // ── LOAD ──
+    async function loadFighters() {
+      const grid = document.getElementById('grid');
+      try {
+        const listRes = await fetch('../../data/boxers/fighters-list.json');
+        if (!listRes.ok) throw new Error('ไม่พบ fighters-list.json');
+        const files = await listRes.json();
+
+        const results = await Promise.all(files.map(async file => {
+          try {
+            const r = await fetch('../../data/boxers/'+encodeURIComponent(file));
+            if (r.ok) return {...(await r.json()), fileName: file};
+          } catch {}
+          return null;
+        }));
+
+        allFighters = results.filter(Boolean);
+        applyFilter();
+      } catch (e) {
+        grid.innerHTML = `<div class="empty"><span>⚠️</span>${e.message}</div>`;
+      }
+    }
+
+    // ── FILTER ──
+    function applyFilter() {
+      const q = inlineQ.toLowerCase();
+      filtered = allFighters.filter(f => {
+        const p   = f.fighter_profile || {};
+        const div = p.physical_stats?.division || '';
+        const matchDiv = activeDiv === 'all' || div === activeDiv;
+        const matchQ   = !q ||
+          (p.name_th||'').toLowerCase().includes(q) ||
+          (p.name_en||'').toLowerCase().includes(q) ||
+          (p.alias||'').toLowerCase().includes(q);
+        return matchDiv && matchQ;
+      });
+      shown = 0;
+      renderCards(true);
+      document.getElementById('countBadge').textContent = filtered.length + ' คน';
+    }
+
+    function renderCards(reset) {
+      const grid = document.getElementById('grid');
+      const btn  = document.getElementById('loadMoreBtn');
+
+      if (reset) grid.innerHTML = '';
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="empty"><span>🥊</span>ไม่พบนักมวยที่ค้นหา</div>`;
+        btn.classList.add('hidden');
+        return;
+      }
+
+      const slice = filtered.slice(shown, shown + (reset ? INIT_SHOW : LOAD_MORE));
+      slice.forEach(f => {
+        const p = f.fighter_profile || {};
+        const h = (f.fight_history || []).filter(x => x.result && x.result.trim() !== '');
+        const wins   = h.filter(x => x.result === 'Win').length;
+        const losses = h.filter(x => x.result === 'Loss').length;
+        const draws  = h.filter(x => x.result === 'Draw').length;
+        const img    = imgUrl(p.image_url, 300, 300);
+        const alias  = p.alias && p.alias !== 'ไม่ระบุ' ? `"${p.alias}"` : '';
+        const grade  = p.grade && p.grade !== 'N/A' ? p.grade : null;
+        const url    = encodeURIComponent(f.fileName.replace('.json','.html'));
+
+        const el = document.createElement('a');
+        el.href = url;
+        el.className = 'fighter-card';
+        // 🛠️ แก้ไขที่ 2: เพิ่ม this.onerror=null; ป้องกันการโหลดวนซ้ำที่รูปในการ์ด
+        el.innerHTML = `
+          <img src="${img}" class="card-img" alt="${p.name_th}" loading="lazy" onerror="this.onerror=null; this.src='../../assets/images/noname.jpg';">
+          <div class="card-body">
+            <div class="card-name">${p.name_th||'—'}</div>
+            <div class="card-alias">${alias}</div>
+            <div class="card-record"><span class="w">${wins}W</span> · <span class="l">${losses}L</span> · ${draws}D</div>
+            <div class="card-footer">
+              <span class="div-badge">${p.physical_stats?.division||'—'}</span>
+              <span class="grade-badge ${grade?'':'na'}">${grade?'เกรด '+grade:'—'}</span>
+            </div>
+          </div>`;
+        grid.appendChild(el);
+      });
+
+      shown += slice.length;
+      const remain = filtered.length - shown;
+
+      if (remain > 0) {
+        btn.classList.remove('hidden');
+        document.getElementById('remainCount').textContent = `(${remain} คน)`;
+      } else {
+        btn.classList.add('hidden');
+      }
+    }
+
+    function loadMore() { renderCards(false); }
+
+    // ── FILTER BUTTONS ──
+    function setFilter(el) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      activeDiv = el.dataset.div;
+      applyFilter();
+    }
+
+    // ── INLINE SEARCH ──
+    function filterInline() {
+      inlineQ = document.getElementById('inlineSearch').value.trim();
+      applyFilter();
+    }
+
+    // ── HEADER SEARCH DROPDOWN ──
+    const hInp  = document.getElementById('headerSearch');
+    const hDrop = document.getElementById('headerDrop');
+
+    hInp.addEventListener('input', () => {
+      const q = hInp.value.trim().toLowerCase();
+      if (!q) { hDrop.style.display='none'; return; }
+      const matched = allFighters.filter(f => {
+        const p = f.fighter_profile||{};
+        return (p.name_th||'').toLowerCase().includes(q)||(p.name_en||'').toLowerCase().includes(q);
+      }).slice(0,6);
+      
+      // 🛠️ แก้ไขที่ 3: เพิ่ม this.onerror=null; ป้องกันการโหลดวนซ้ำที่รูปในช่องค้นหา
+      hDrop.innerHTML = matched.length===0
+        ? `<div style="padding:14px;text-align:center;color:var(--muted);font-size:13px">ไม่พบนักมวย</div>`
+        : matched.map(f => {
+            const p = f.fighter_profile||{};
+            const url = encodeURIComponent(f.fileName.replace('.json','.html'));
+            return `<a href="${url}" class="drop-item">
+              <img src="${imgUrl(p.image_url,70,70)}" onerror="this.onerror=null; this.src='../../assets/images/noname.jpg';">
+              <div><div class="drop-name">${p.name_th||'—'}</div><div class="drop-meta">${p.physical_stats?.division||'—'}</div></div>
+            </a>`;
+          }).join('');
+      hDrop.style.display = 'block';
+    });
+
+    function doHeaderSearch() {
+      const q = hInp.value.trim().toLowerCase();
+      if (!q) return;
+      const f = allFighters.find(x => (x.fighter_profile?.name_th||'').toLowerCase().includes(q));
+      if (f) window.location.href = encodeURIComponent(f.fileName.replace('.json','.html'));
+    }
+
+    hInp.addEventListener('keypress', e => { if(e.key==='Enter') doHeaderSearch(); });
+    document.addEventListener('click', e => { if(!e.target.closest('.search-wrap')) hDrop.style.display='none'; });
+
+    loadFighters();
+  </script>
+</body>
+</html>

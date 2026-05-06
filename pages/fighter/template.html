@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" id="meta-desc" content="ดูประวัติและสถิติการชกของนักมวยไทย เช็คฟอร์มล่าสุด อัตราการชนะ ข้อมูลเชิงลึก และประวัติการขึ้นชกย้อนหลัง">
+    <meta name="keywords" id="meta-keywords" content="สถิตินักมวย, ประวัตินักมวย, ผลการชก, มวยไทย, BoxingFandom, จัดอันดับมวย">
+    <title id="page-title">โปรไฟล์นักมวย | ข้อมูลเชิงลึกรายบุคคล | BoxingFandom</title>
+    <meta property="og:type" content="profile">
+    <meta property="og:site_name" content="BoxingFandom">
+    <meta property="og:title" id="og-title" content="โปรไฟล์นักมวย | BoxingFandom">
+    <meta property="og:description" id="og-desc" content="ข้อมูลสถิติและประวัติการชก">
+    <meta property="og:image" id="og-image" content="../../assets/images/noname.jpg">
+
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RTGDWTKBRG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-RTGDWTKBRG');
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7070993370449457" crossorigin="anonymous"></script>
+
+    <style>
+        /* ===== DESIGN TOKENS ===== */
+        :root {
+            --primary: #dc2626;
+            --primary-dark: #b91c1c;
+            --primary-light: #fef2f2;
+            --bg: #f8f9fa;
+            --card: #ffffff;
+            --text-main: #202124;
+            --text-muted: #5f6368;
+            --text-secondary: #3c4043;
+            --border: #e8eaed;
+            --border-hover: #dadce0;
+            --win: #188038;
+            --win-bg: #e6f4ea;
+            --loss: #c5221f;
+            --loss-bg: #fce8e6;
+            --neutral: #80868b;
+            --neutral-bg: #f1f3f4;
+            --gold: #f29900;
+            --dark-header: #202124;
+            --header-height: 64px;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --shadow-sm: 0 1px 2px rgba(60,64,67,.1), 0 1px 3px rgba(60,64,67,.08);
+            --shadow-md: 0 1px 6px rgba(60,64,67,.15), 0 2px 8px rgba(60,64,67,.1);
+            --shadow-lg: 0 4px 16px rgba(60,64,67,.12), 0 8px 24px rgba(60,64,67,.08);
+        }
+
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Sarabun', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            font-size: 15px;
+        }
+
+        /* ===== HEADER — Google-style ===== */
+        header.main-header {
+            background: var(--card);
+            border-bottom: 1px solid var(--border);
+            height: var(--header-height);
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            gap: 16px;
+        }
+
+        .header-logo {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .header-logo .logo-boxing {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        .header-logo .logo-fandom {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--dark-header);
+            letter-spacing: -0.5px;
+        }
+
+        /* Search bar in header */
+        .header-search-wrap {
+            flex: 1;
+            max-width: 580px;
+            position: relative;
+        }
+
+        .header-search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 0 16px;
+            height: 44px;
+            transition: box-shadow 0.15s, border-color 0.15s;
+            gap: 10px;
+        }
+
+        .header-search-box:focus-within {
+            box-shadow: 0 0 0 3px rgba(220,38,38,.12);
+            border-color: var(--primary);
+            background: var(--card);
+        }
+
+        .search-icon {
+            color: var(--text-muted);
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .header-search-box input[type="text"] {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: 'Sarabun', sans-serif;
+            font-size: 15px;
+            color: var(--text-main);
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header-search-box input[type="text"]::placeholder { color: var(--text-muted); }
+
+        .header-search-box button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 16px;
+            padding: 4px;
+            border-radius: 50%;
+            transition: background 0.15s;
+        }
+
+        .header-search-box button:hover { background: var(--border); color: var(--text-main); }
+
+        .search-dropdown {
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            max-height: 380px;
+            overflow-y: auto;
+            z-index: 3000;
+            display: none;
+        }
+
+        .search-dropdown-item {
+            padding: 10px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: background 0.1s;
+        }
+
+        .search-dropdown-item:last-child { border-bottom: none; }
+        .search-dropdown-item:hover { background: var(--bg); }
+
+        .search-dropdown-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            flex-shrink: 0;
+        }
+
+        .search-dropdown-info { display: flex; flex-direction: column; overflow: hidden; }
+
+        .search-dropdown-name {
+            font-weight: 600;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .search-dropdown-meta { font-size: 12px; color: var(--text-muted); }
+
+        /* ===== MAIN LAYOUT ===== */
+        main {
+            flex: 1;
+            padding: 32px 16px 48px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* ===== BREADCRUMB NAV ===== */
+        .profile-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .back-link:hover { background: var(--border); color: var(--text-main); }
+
+        .nav-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: var(--primary);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .action-btn:hover { background: var(--primary-dark); box-shadow: var(--shadow-sm); }
+
+        .action-btn.secondary {
+            background: var(--card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .action-btn.secondary:hover { background: var(--bg); border-color: var(--border-hover); box-shadow: var(--shadow-sm); }
+
+        /* ===== PROFILE CARD ===== */
+        .profile-card {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: 40px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .profile-header {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        /* Photo */
+        .img-wrap {
+            width: 220px;
+            height: 290px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--bg);
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+        }
+
+        .img-credit-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(32,33,36,0.92) 0%, rgba(32,33,36,0.55) 60%, transparent 100%);
+            padding: 22px 10px 10px;
+            pointer-events: none;
+        }
+
+        .img-credit-title {
+            color: #fff;
+            font-size: 10px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .img-credit-note {
+            color: rgba(255,255,255,0.65);
+            font-size: 9px;
+            line-height: 1.3;
+            display: block;
+        }
+
+        /* Info side */
+        .info-box {
+            flex: 1;
+            min-width: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 4px;
+        }
+
+        .fighter-name {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--dark-header);
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .alias {
+            color: var(--text-muted);
+            font-size: 17px;
+            font-weight: 400;
+            margin-bottom: 18px;
+            display: block;
+            font-style: italic;
+        }
+
+        /* View counter */
+        .view-counter-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            width: fit-content;
+        }
+
+        .view-count-number { color: var(--primary); font-weight: 700; }
+
+        /* Hashtags */
+        .seo-hashtags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .seo-hashtags span {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: default;
+            transition: border-color 0.15s, color 0.15s;
+        }
+
+        .seo-hashtags span:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* Info grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .info-item {
+            background: var(--bg);
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .info-item:hover { border-color: var(--border-hover); box-shadow: var(--shadow-sm); }
+
+        .info-item span {
+            display: block;
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            margin-bottom: 3px;
+        }
+
+        .info-item b { font-size: 15px; color: var(--text-main); font-weight: 700; }
+
+        /* ===== SECTION CARD ===== */
+        .section-card {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: 32px 40px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--dark-header);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-title-bar {
+            width: 3px;
+            height: 18px;
+            background: var(--primary);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ===== BIOGRAPHY ===== */
+        .bio-text {
+            font-size: 15px;
+            line-height: 1.85;
+            color: var(--text-secondary);
+        }
+
+        /* ===== STATS ROW ===== */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 12px;
+        }
+
+        .stat-card {
+            background: var(--bg);
+            padding: 20px 16px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+        }
+
+        .stat-card:hover {
+            background: var(--card);
+            border-color: var(--border-hover);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-1px);
+        }
+
+        .stat-card small {
+            color: var(--text-muted);
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.6px;
+            margin-bottom: 6px;
+        }
+
+        .stat-card b { font-size: 22px; color: var(--dark-header); font-weight: 800; }
+
+        /* ===== FIGHT HISTORY TABLE ===== */
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+            text-align: left;
+        }
+
+        th {
+            padding: 12px 18px;
+            background: var(--bg);
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--bg); }
+
+        .hidden-row { display: none; }
+
+        .load-more-btn {
+            display: block;
+            width: 100%;
+            background: var(--card);
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            padding: 13px;
+            text-align: center;
+            font-weight: 600;
+            border-radius: var(--radius-sm);
+            margin-top: 16px;
+            cursor: pointer;
+            transition: all 0.15s;
+            font-size: 14px;
+            font-family: 'Sarabun', sans-serif;
+        }
+
+        .load-more-btn:hover { background: var(--bg); border-color: var(--border-hover); box-shadow: var(--shadow-sm); }
+
+        /* Result pills */
+        .win {
+            color: var(--win);
+            font-weight: 700;
+            background: var(--win-bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 13px;
+            text-align: center;
+            min-width: 52px;
+            letter-spacing: 0.3px;
+        }
+
+        .loss {
+            color: var(--loss);
+            font-weight: 700;
+            background: var(--loss-bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 13px;
+            text-align: center;
+            min-width: 52px;
+        }
+
+        .draw {
+            color: var(--neutral);
+            font-weight: 700;
+            background: var(--neutral-bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 13px;
+            text-align: center;
+            min-width: 52px;
+            border: 1px solid var(--border);
+        }
+
+        /* Discipline badge */
+        .discipline-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            background: var(--dark-header);
+            color: #fff;
+            letter-spacing: 0.3px;
+            margin-bottom: 3px;
+        }
+
+        .opponent-link {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.15s;
+        }
+
+        .opponent-link:hover { color: var(--primary); }
+
+        .opponent-row { display: flex; align-items: center; gap: 12px; }
+
+        .opponent-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
+
+        /* ===== UPCOMING FIGHT BANNER ===== */
+        .upcoming-banner {
+            background: linear-gradient(135deg, #1a1a2e 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 24px 28px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 18px;
+            box-shadow: 0 4px 16px rgba(220,38,38,.2);
+        }
+
+        .upcoming-label {
+            color: #fca5a5;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .upcoming-title { font-size: 20px; font-weight: 800; margin: 0 0 6px; }
+        .upcoming-meta { font-size: 13px; color: rgba(255,255,255,0.8); }
+
+        .upcoming-cta {
+            background: white;
+            color: var(--primary);
+            padding: 10px 22px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.15s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .upcoming-cta:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.2); transform: translateY(-1px); }
+
+        /* ===== ADVANCED STATS (UFC) — keep dark panel ===== */
+        .ufc-stats-container {
+            background: #0f172a;
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: auto;
+        }
+
+        footer nav ul {
+            justify-content: center;
+            list-style: none;
+            display: flex;
+            padding: 0;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        footer nav ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 16px;
+            transition: background 0.15s, color 0.15s;
+            display: block;
+        }
+
+        footer nav ul li a:hover { background: var(--bg); color: var(--text-main); }
+
+        footer p { font-size: 12px; color: var(--text-muted); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            header.main-header { padding: 0 16px; gap: 10px; }
+            .header-logo .logo-boxing, .header-logo .logo-fandom { font-size: 18px; }
+
+            main { padding: 20px 12px 40px; }
+
+            .profile-card, .section-card { padding: 24px 20px; }
+
+            .profile-header { flex-direction: column; align-items: center; text-align: center; gap: 24px; }
+            .img-wrap { width: 180px; height: 235px; }
+            .fighter-name { font-size: 28px; }
+            .info-box { align-items: center; }
+            .info-grid { grid-template-columns: 1fr 1fr; }
+            .seo-hashtags { justify-content: center; }
+
+            .profile-nav { justify-content: center; margin-bottom: 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header class="main-header">
+        <a href="../../index.html" class="header-logo">
+            <span class="logo-boxing">Boxing</span><span class="logo-fandom">Fandom</span>
+        </a>
+
+        <div class="header-search-wrap">
+            <div class="header-search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="globalSearchInput" placeholder="ค้นหานักมวย..." autocomplete="off">
+                <button type="button" id="globalSearchBtn" title="ค้นหา">⏎</button>
+            </div>
+            <div id="globalSearchDropdown" class="search-dropdown"></div>
+        </div>
+    </header>
+
+    <!-- ===== MAIN ===== -->
+    <main>
+        <div class="container">
+
+            <!-- Breadcrumb / Actions -->
+            <div class="profile-nav">
+                <a href="index.html" class="back-link">← กลับหน้ารวมนักมวย</a>
+                <div class="nav-actions">
+                    <a href="../stats/compare.html" class="action-btn secondary">📊 เทียบสถิติ</a>
+                    <a href="../stats/analysis.html" class="action-btn">🧠 วิเคราะห์ AI</a>
+                </div>
+            </div>
+
+            <!-- Content injected by JS -->
+            <div id="content">
+                <div style="text-align:center; padding:80px 20px; color:var(--text-muted); font-size:15px;">
+                    กำลังประมวลผลข้อมูลนักมวย...
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="#">นโยบายความเป็นส่วนตัว</a></li>
+                <li><a href="#">เกี่ยวกับฉัน</a></li>
+                <li><a href="#">ติดต่อ</a></li>
+            </ul>
+        </nav>
+        <p>© 2026 สงวนลิขสิทธิ์ BoxingFandom</p>
+    </footer>
+
+    <script>
+        // ===============================================
+        // CONSTANTS
+        // ===============================================
+        const BASE_PATHS = ['../../data/boxers/', '../data/boxers/', './data/boxers/'];
+
+        // ===============================================
+        // HELPERS
+        // ===============================================
+        function getCloudinaryUrl(imgId, width, height) {
+            if (!imgId || imgId === "ไม่ระบุ" || imgId === "ยังไม่มีข้อมูล" || imgId.trim() === "" || imgId === "noname") {
+                return "../../assets/images/noname.jpg";
+            }
+            if (imgId.startsWith('http') || imgId.includes('../../')) {
+                return imgId.startsWith('http') ? imgId : '../../' + imgId;
+            }
+            const cleanImgId = imgId.replace(/\.(jpg|jpeg|png|webp)$/i, '');
+            const transform = `c_fill,g_face,h_${height},w_${width},f_auto,q_auto`;
+            return `https://res.cloudinary.com/dpvyl7nan/image/upload/${transform}/v1/${encodeURIComponent(cleanImgId)}`;
+        }
+
+        async function fetchJSON(fileName) {
+            const encoded = encodeURIComponent(fileName);
+            for (const base of BASE_PATHS) {
+                try {
+                    const res = await fetch(base + encoded);
+                    if (res.ok) return res.json();
+                } catch (e) { }
+            }
+            return null;
+        }
+
+        function makeDonut(pct, color) {
+            return `
+                <div style="width:115px; height:115px; border-radius:50%; background:conic-gradient(${color} 0% ${pct}%, #334155 ${pct}% 100%); display:flex; align-items:center; justify-content:center; margin:0 auto 10px;">
+                    <div style="width:91px; height:91px; background:#0f172a; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; font-weight:900; color:#fff;">${pct}%</div>
+                </div>`;
+        }
+
+        function makeStatCard(label, value, style = '') {
+            return `<div class="stat-card"><small>${label}</small><b${style ? ` style="${style}"` : ''}>${value}</b></div>`;
+        }
+
+        function makeInfoItem(label, value, style = '') {
+            return `<div class="info-item"><span>${label}</span><b${style ? ` style="${style}"` : ''}>${value}</b></div>`;
+        }
+
+        function filterFighters(query) {
+            return globalSearchDB.filter(item => {
+                const p = item.fighter_profile || {};
+                return (p.name_th || '').toLowerCase().includes(query)
+                    || (p.name_en || '').toLowerCase().includes(query)
+                    || (p.alias || '').toLowerCase().includes(query);
+            });
+        }
+
+        function createBodyStatWidget(title, head, body, legs, colorHex) {
+            const maxVal = Math.max(head, body, legs, 1);
+            const headOp = Math.max(head / maxVal, 0.3);
+            const bodyOp = Math.max(body / maxVal, 0.3);
+            const legsOp = Math.max(legs / maxVal, 0.3);
+            return `
+                <div style="background:#1e293b; padding:24px; border-radius:12px; border:1px solid #334155;">
+                    <h3 style="font-size:15px; font-weight:800; color:#f8fafc; text-transform:uppercase; margin-bottom:22px; text-align:center; letter-spacing:1px;">${title}</h3>
+                    <div style="display:flex; align-items:center; justify-content:center; gap:14px;">
+                        <div style="display:flex; flex-direction:column; justify-content:space-between; height:155px; text-align:right; font-weight:800; color:#cbd5e1; font-size:13px; text-transform:uppercase; width:55px;">
+                            <div>Head</div><div>Body</div><div>Legs</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; justify-content:space-between; height:155px; width:28px;">
+                            <div style="border-bottom:1px solid #475569; height:14px;"></div>
+                            <div style="border-bottom:1px solid #475569; height:58px;"></div>
+                            <div style="border-bottom:1px solid #475569; height:58px;"></div>
+                        </div>
+                        <div style="width:65px; display:flex; justify-content:center;">
+                            <svg viewBox="0 0 100 220" width="65" height="155" style="overflow:visible; filter:drop-shadow(0 3px 6px rgba(0,0,0,.3));">
+                                <circle cx="50" cy="20" r="18" fill="${colorHex}" opacity="${headOp}" style="transition:opacity .5s;"/>
+                                <rect x="25" y="42" width="50" height="75" rx="12" fill="${colorHex}" opacity="${bodyOp}" style="transition:opacity .5s;"/>
+                                <rect x="5" y="45" width="15" height="65" rx="7.5" fill="${colorHex}" opacity="${bodyOp}" style="transition:opacity .5s;"/>
+                                <rect x="80" y="45" width="15" height="65" rx="7.5" fill="${colorHex}" opacity="${bodyOp}" style="transition:opacity .5s;"/>
+                                <rect x="30" y="120" width="16" height="80" rx="8" fill="${colorHex}" opacity="${legsOp}" style="transition:opacity .5s;"/>
+                                <rect x="54" y="120" width="16" height="80" rx="8" fill="${colorHex}" opacity="${legsOp}" style="transition:opacity .5s;"/>
+                            </svg>
+                        </div>
+                        <div style="display:flex; flex-direction:column; justify-content:space-between; height:155px; width:28px;">
+                            <div style="border-bottom:1px solid #475569; height:14px;"></div>
+                            <div style="border-bottom:1px solid #475569; height:58px;"></div>
+                            <div style="border-bottom:1px solid #475569; height:58px;"></div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; justify-content:space-between; height:155px; text-align:left; font-weight:900; color:${colorHex}; font-size:17px; width:48px;">
+                            <div>${head}%</div><div>${body}%</div><div>${legs}%</div>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        // ===============================================
+        // SHOW MORE FIGHTS
+        // ===============================================
+        window.showMoreFights = function () {
+            const hiddenRows = document.querySelectorAll('.hidden-row');
+            for (let i = 0; i < 5 && i < hiddenRows.length; i++) {
+                hiddenRows[i].classList.remove('hidden-row');
+            }
+            if (document.querySelectorAll('.hidden-row').length === 0) {
+                document.getElementById('loadMoreBtn').style.display = 'none';
+            }
+        };
+
+        // ===============================================
+        // LOAD DETAIL
+        // ===============================================
+        async function loadDetail() {
+            const pathArray = window.location.pathname.split('/');
+            let currentPage = pathArray[pathArray.length - 1];
+            let fileName = "";
+
+            if (!currentPage || currentPage === "template.html" || currentPage === "index.html") {
+                const urlParams = new URLSearchParams(window.location.search);
+                fileName = urlParams.get('id');
+                if (fileName && !fileName.endsWith('.json')) fileName += '.json';
+            } else {
+                fileName = decodeURIComponent(currentPage).replace('.html', '.json');
+            }
+
+            const container = document.getElementById('content');
+
+            if (!fileName) {
+                container.innerHTML = `
+                    <div class="profile-card" style="text-align:center; padding:60px;">
+                        <h2 style="color:var(--primary); font-size:1.8rem; margin-bottom:12px;">โปรดเลือกนักมวยก่อน</h2>
+                        <p style="color:var(--text-muted);">กรุณากลับไปที่ <a href="index.html" style="color:var(--dark-header); font-weight:bold;">หน้ารวมนักมวย</a></p>
+                    </div>`;
+                return;
+            }
+
+            try {
+                const data = await fetchJSON(fileName);
+                if (!data) throw new Error("File not found");
+
+                const allFiles = await fetchJSON('fighters-list.json') || [];
+                const p = data.fighter_profile;
+                const rawHistory = data.fight_history || data.fight_history_one_championship || [];
+                const upcomingFights = rawHistory.filter(f => !f.result || f.result.trim() === "");
+                const pastFights = rawHistory.filter(f => f.result && f.result.trim() !== "");
+
+                const totalFights = pastFights.length;
+                const winCount = pastFights.filter(f => f.result.toLowerCase() === 'win').length;
+                const mainImgUrl = getCloudinaryUrl(p.image_url, 260, 340);
+
+                const aliasText = p.alias && p.alias !== "ไม่ระบุ" ? `ฉายา ${p.alias}` : "";
+                const seoTitle = `ประวัติ ${p.name_th} สถิติการชก ผลมวยล่าสุด ไฮไลท์ | BoxingFandom`;
+                const seoDesc = `ดูประวัติและสถิติการชกของ ${p.name_th} ${aliasText} อัปเดตผลมวยล่าสุด ฟอร์มย้อนหลัง ไฮไลท์มวย ตารางชกไฟต์ต่อไป ชกทั้งหมด ${totalFights} ไฟต์ ชนะ ${winCount} ครั้ง พร้อมระบบวิเคราะห์เจาะลึก`;
+                const seoKeywords = `${p.name_th}, ประวัติ ${p.name_th}, สถิติ ${p.name_th}, ผลมวย ${p.name_th}, ไฮไลท์ ${p.name_th}, ข่าวมวย ${p.name_th}, มวยไทย, ผลการชก, BoxingFandom`;
+
+                document.title = seoTitle;
+                document.getElementById('meta-desc').content = seoDesc;
+                document.getElementById('meta-keywords').content = seoKeywords;
+                document.getElementById('og-title').content = seoTitle;
+                document.getElementById('og-desc').content = seoDesc;
+                document.getElementById('og-image').content = mainImgUrl;
+
+                // Upcoming banner
+                let upcomingHTML = '';
+                if (upcomingFights.length > 0) {
+                    const nextFight = upcomingFights[0];
+                    const oppName = nextFight.opponent_th || nextFight.opponent_en || 'ไม่ระบุชื่อ';
+                    const _eventSlug = (nextFight.event_en || '').trim().replace(/\s+/g, '-');
+                    const _f1Slug = fileName.replace('.json', '');
+                    const _f2Slug = (nextFight.opponent_th || nextFight.opponent_en || '').trim().replace(/\s+/g, '-');
+                    const _dateParam = nextFight.date ? `&date=${encodeURIComponent(nextFight.date)}` : '';
+                    const matchupUrl = `../matchup/matchup.html?event=${encodeURIComponent(_eventSlug)}&f1=${encodeURIComponent(_f1Slug)}&f2=${encodeURIComponent(_f2Slug)}${_dateParam}`;
+
+                    upcomingHTML = `
+                        <div class="upcoming-banner">
+                            <div>
+                                <span class="upcoming-label">🔥 โปรแกรมชกไฟต์ต่อไป</span>
+                                <h3 class="upcoming-title">${p.name_th} VS ${oppName}</h3>
+                                <div class="upcoming-meta">📅 ${nextFight.date || 'รอกำหนดการ'} &nbsp;·&nbsp; 🏟️ ${nextFight.event_en || nextFight.event_name || 'ไม่ระบุ'}</div>
+                            </div>
+                            <a href="${matchupUrl}" class="upcoming-cta">🧠 AI วิเคราะห์ไฟต์นี้</a>
+                        </div>`;
+                }
+
+                // Advanced stats
+                let advancedStatsHTML = '';
+                if (p.performance_stats?.significant_strike_accuracy && p.performance_stats?.defensive_stats) {
+                    const stats = p.performance_stats;
+                    const offAcc = stats.significant_strike_accuracy.overall_accuracy_percentage || 0;
+                    const offHead = stats.significant_strike_accuracy.accuracy_by_target_percentage?.head || 0;
+                    const offBody = stats.significant_strike_accuracy.accuracy_by_target_percentage?.body || 0;
+                    const offLegs = stats.significant_strike_accuracy.accuracy_by_target_percentage?.legs || 0;
+                    const spm = stats.significant_strikes_per_minute?.total_per_minute || 0;
+                    const defOverall = stats.defensive_stats.overall_defense_percentage || 0;
+                    const defHead = stats.defensive_stats.defense_by_target_percentage?.head || 0;
+                    const defBody = stats.defensive_stats.defense_by_target_percentage?.body || 0;
+                    const defLegs = stats.defensive_stats.defense_by_target_percentage?.legs || 0;
+
+                    advancedStatsHTML = `
+                        <div class="ufc-stats-container" style="margin-top:0;">
+                            <h2 style="font-size:20px; font-weight:900; text-align:center; margin-bottom:36px; color:#fff; text-transform:uppercase; letter-spacing:1px;">
+                                <span style="color:var(--primary);">Advanced</span> Striking Stats
+                            </h2>
+                            <div style="display:flex; flex-wrap:wrap; gap:36px; justify-content:center; margin-bottom:36px;">
+                                <div style="text-align:center; width:115px;">
+                                    <div style="font-size:34px; font-weight:900; color:#fff; height:115px; display:flex; align-items:center; justify-content:center;">${spm}</div>
+                                    <div style="font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:.5px;">Str. Landed / Min</div>
+                                </div>
+                                <div style="text-align:center; width:115px;">
+                                    ${makeDonut(offAcc, '#dc2626')}
+                                    <div style="font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:.5px;">Striking Accuracy</div>
+                                </div>
+                                <div style="text-align:center; width:115px;">
+                                    ${makeDonut(defOverall, '#16a34a')}
+                                    <div style="font-size:11px; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:.5px;">Strike Defense</div>
+                                </div>
+                            </div>
+                            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px; border-top:1px solid #334155; padding-top:28px;">
+                                ${createBodyStatWidget('SIG. STR. BY TARGET', offHead, offBody, offLegs, '#ef4444')}
+                                ${createBodyStatWidget('DEFENSE BY TARGET', defHead, defBody, defLegs, '#3b82f6')}
+                            </div>
+                        </div>`;
+                } else {
+                    advancedStatsHTML = `
+                        <div style="background:var(--bg); border:1px dashed var(--border); border-radius:var(--radius-md); padding:28px; text-align:center; color:var(--text-muted);">
+                            <span style="font-size:22px; display:block; margin-bottom:8px;">📊</span>
+                            <b>ยังไม่มีข้อมูลสถิติเชิงลึก (Advanced Stats) สำหรับนักมวยรายนี้</b><br>
+                            <span style="font-size:12px;">ระบบกำลังรวบรวมข้อมูลและจะอัปเดตในเร็วๆ นี้</span>
+                        </div>`;
+                }
+
+                // Opponent lookup
+                const enhancedHistory = await Promise.all(pastFights.map(async (f) => {
+                    const oppName = f.opponent_th || f.opponent_en;
+                    let opponentImage = getCloudinaryUrl("noname", 70, 70);
+                    let opponentFileName = null;
+
+                    if (oppName && oppName !== "ไม่ระบุ") {
+                        const searchName = oppName.toLowerCase().replace(/\s+/g, '');
+                        const foundFile = allFiles.find(file => {
+                            const cleanFile = file.toLowerCase().replace(/[-\s]/g, '').replace('.json', '');
+                            return cleanFile.includes(searchName) || searchName.includes(cleanFile);
+                        });
+                        if (foundFile) {
+                            opponentFileName = foundFile;
+                            const oppData = await fetchJSON(foundFile.trim());
+                            if (oppData?.fighter_profile?.image_url) {
+                                opponentImage = getCloudinaryUrl(oppData.fighter_profile.image_url, 70, 70);
+                            }
+                        }
+                    }
+                    return { ...f, opponentImage, opponentFileName, oppName };
+                }));
+
+                const initialShowCount = 5;
+                const tableRowsHTML = enhancedHistory.map((f, index) => {
+                    const res = (f.result || "").toLowerCase();
+                    let cls = 'draw';
+                    if (res === 'win') cls = 'win';
+                    else if (res === 'loss') cls = 'loss';
+                    const getOpponentLink = (name, oppFile) => oppFile
+                        ? `<a href="${encodeURIComponent(oppFile.replace('.json', '.html'))}" class="opponent-link">${name}</a>`
+                        : `<span style="font-weight:600; color:var(--text-main);">${name}</span>`;
+                    const rowClass = index >= initialShowCount ? 'hidden-row' : '';
+
+                    return `
+                        <tr class="${rowClass}">
+                            <td><span class="${cls}">${f.result || 'Draw'}</span></td>
+                            <td>
+                                <div class="opponent-row">
+                                    <img src="${f.opponentImage}" class="opponent-avatar" onerror="this.src='../../assets/images/noname.jpg';">
+                                    ${getOpponentLink(f.oppName, f.opponentFileName)}
+                                </div>
+                            </td>
+                            <td>
+                                <span class="discipline-badge">${f.discipline_en || "Muay Thai"}</span><br>
+                                <span style="color:var(--text-muted); font-size:12px; font-weight:500;">${f.event_en || '-'}</span>
+                            </td>
+                            <td>
+                                <b style="color:var(--text-main); font-size:14px;">${f.method_en || 'Decision'}</b><br>
+                                <span style="color:var(--text-muted); font-size:12px;">${f.round ? 'ยกที่ ' + f.round : ''}</span>
+                            </td>
+                            <td style="font-size:13px; color:var(--text-muted); font-weight:500; white-space:nowrap;">${f.date || '-'}</td>
+                        </tr>`;
+                }).join('') || `<tr><td colspan="5" style="text-align:center; padding:40px; color:var(--text-muted);">ยังไม่มีข้อมูลการชกย้อนหลัง</td></tr>`;
+
+                const loadMoreBtnHTML = pastFights.length > initialShowCount
+                    ? `<button id="loadMoreBtn" class="load-more-btn" onclick="showMoreFights()">โหลดประวัติเพิ่มเติม (ทีละ 5 ไฟต์)</button>`
+                    : '';
+
+                container.innerHTML = `
+                    <article>
+                        ${upcomingHTML}
+
+                        <div class="profile-card">
+                            <div class="profile-header">
+                                <div class="img-wrap">
+                                    <img src="${mainImgUrl}" class="profile-img" alt="ประวัติ ${p.name_th}" title="${p.name_th}" onerror="this.src='../../assets/images/noname.jpg'">
+                                    <div class="img-credit-overlay">
+                                        <span class="img-credit-title">📸 Credit: ONE Championship / BoxingFandom</span>
+                                        <span class="img-credit-note">ใช้ภาพเพื่อประกอบการนำเสนอสถิติเท่านั้น</span>
+                                    </div>
+                                </div>
+
+                                <div class="info-box">
+                                    <h1 class="fighter-name">${p.name_th}</h1>
+                                    <span class="alias">"${p.alias || 'ยอดนักสู้'}"</span>
+
+                                    <div class="view-counter-badge">
+                                        <span>👁️</span>
+                                        <span class="view-count-number" id="pageViewsCount">...</span>
+                                        <span style="color:var(--text-muted);">ครั้ง</span>
+                                    </div>
+
+                                    <div class="seo-hashtags">
+                                        <span>#ผลมวย${p.name_th}</span>
+                                        <span>#สถิติ${p.name_th}</span>
+                                        <span>#ไฮไลท์มวย${p.name_th}</span>
+                                        <span>#ฟอร์มย้อนหลัง</span>
+                                    </div>
+
+                                    <div class="info-grid">
+                                        ${makeInfoItem('ชื่อภาษาอังกฤษ', p.name_en || '-')}
+                                        ${makeInfoItem('สังกัด/ค่าย', p.personal_info?.team_th || 'ไม่ระบุ')}
+                                        ${makeInfoItem('สไตล์การชก', p.fighting_style_th || 'ไม่ระบุ')}
+                                        ${makeInfoItem('ระดับเกรด', p.grade || 'N/A', 'color:var(--win);')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="section-card">
+                            <h2 class="section-title"><span class="section-title-bar"></span> ข้อมูลกายภาพ</h2>
+                            <div class="stats-row">
+                                ${makeStatCard('รุ่นน้ำหนัก', p.physical_stats?.division || '-')}
+                                ${makeStatCard('ส่วนสูง (ซม.)', p.physical_stats?.height_cm || '-')}
+                                ${makeStatCard('อายุ (ปี)', p.personal_info?.age || '-')}
+                                ${makeStatCard('สัญชาติ', p.personal_info?.country_th || '-')}
+                            </div>
+                        </div>
+
+                        <div class="section-card">
+                            <h2 class="section-title"><span class="section-title-bar"></span> ประวัติการชก (Fight History)</h2>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ผล</th>
+                                            <th>คู่ชก</th>
+                                            <th>กติกา / รายการ</th>
+                                            <th>วิธีการ</th>
+                                            <th>วันที่</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>${tableRowsHTML}</tbody>
+                                </table>
+                            </div>
+                            ${loadMoreBtnHTML}
+                        </div>
+
+                        <div class="section-card">
+                            <h2 class="section-title"><span class="section-title-bar"></span> Advanced Striking Stats</h2>
+                            ${advancedStatsHTML}
+                        </div>
+
+                        ${p.short_biography ? `
+                        <div class="section-card">
+                            <h2 class="section-title"><span class="section-title-bar"></span> เส้นทางนักสู้</h2>
+                            <p class="bio-text">${p.short_biography}</p>
+                        </div>` : ''}
+
+                    </article>`;
+
+                initViewCounter(fileName);
+
+            } catch (e) {
+                console.error(e);
+                document.getElementById('content').innerHTML = `
+                    <div class="profile-card" style="text-align:center; padding:60px;">
+                        <h2 style="color:var(--loss); font-size:1.8rem; margin-bottom:12px;">ไม่พบข้อมูลนักมวยท่านนี้</h2>
+                        <p style="color:var(--text-muted);">กรุณาตรวจสอบชื่อไฟล์ หรือกลับไปที่ <a href="index.html" style="color:var(--dark-header); font-weight:bold;">หน้ารวมนักมวย</a></p>
+                    </div>`;
+            }
+        }
+
+        // ===============================================
+        // VIEW COUNTER
+        // ===============================================
+        async function initViewCounter(fileName) {
+            const countDisplay = document.getElementById('pageViewsCount');
+            if (!countDisplay) return;
+            try {
+                const pageId = fileName.replace('.json', '').toLowerCase();
+                const response = await fetch(`https://api.counterapi.dev/v1/boxingfandom_views/${encodeURIComponent(pageId)}/up`);
+                if (!response.ok) throw new Error("API Error");
+                const data = await response.json();
+                countDisplay.innerText = Number(data.count).toLocaleString('en-US');
+            } catch {
+                countDisplay.innerText = "-";
+            }
+        }
+
+        // ===============================================
+        // SEARCH SYSTEM
+        // ===============================================
+        let globalSearchDB = [];
+
+        async function initSearchSystem() {
+            try {
+                const files = await fetchJSON('fighters-list.json');
+                if (!files || files.length === 0) return;
+                const results = await Promise.all(
+                    files.map(async (f) => {
+                        const data = await fetchJSON(f.trim());
+                        return data ? { ...data, fileName: f } : null;
+                    })
+                );
+                globalSearchDB = results.filter(Boolean);
+            } catch (e) {
+                console.warn("ไม่สามารถดึงข้อมูลค้นหาได้");
+            }
+        }
+
+        const topSearchInput = document.getElementById('globalSearchInput');
+        const topSearchBtn = document.getElementById('globalSearchBtn');
+        const topSearchDropdown = document.getElementById('globalSearchDropdown');
+
+        function handleTopSearch() {
+            const query = topSearchInput.value.toLowerCase().trim();
+            if (query.length === 0) { topSearchDropdown.style.display = 'none'; return; }
+            const matched = filterFighters(query);
+            if (matched.length > 0) {
+                topSearchDropdown.innerHTML = matched.map(item => {
+                    const p = item.fighter_profile || {};
+                    const imgUrl = getCloudinaryUrl(p.image_url, 50, 50);
+                    const fighterUrl = encodeURIComponent(item.fileName.replace('.json', '.html'));
+                    return `
+                        <a href="${fighterUrl}" class="search-dropdown-item">
+                            <img src="${imgUrl}" class="search-dropdown-icon" alt="${p.name_th}" onerror="this.src='../../assets/images/noname.jpg'">
+                            <div class="search-dropdown-info">
+                                <span class="search-dropdown-name">${p.name_th}</span>
+                                <span class="search-dropdown-meta">รุ่น: ${p.physical_stats?.division || '-'}</span>
+                            </div>
+                        </a>`;
+                }).join('');
+            } else {
+                topSearchDropdown.innerHTML = '<div style="padding:14px; text-align:center; color:#888; font-size:14px;">ไม่พบนักมวย</div>';
+            }
+            topSearchDropdown.style.display = 'block';
+        }
+
+        function executeEnterSearch() {
+            const query = topSearchInput.value.toLowerCase().trim();
+            if (!query) return;
+            const matched = filterFighters(query);
+            if (matched.length > 0) {
+                window.location.href = encodeURIComponent(matched[0].fileName.replace('.json', '.html'));
+            } else {
+                alert("ไม่พบชื่อนักมวยที่ค้นหา");
+            }
+        }
+
+        topSearchInput.addEventListener('input', handleTopSearch);
+        topSearchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') executeEnterSearch(); });
+        topSearchBtn.addEventListener('click', executeEnterSearch);
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.header-search-wrap')) topSearchDropdown.style.display = 'none';
+        });
+
+        loadDetail();
+        initSearchSystem();
+    </script>
+
+</body>
+</html>

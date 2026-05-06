@@ -1,0 +1,74 @@
+{
+    "fighter_profile": {
+        "name_th": "โจ คยอง แจ",
+        "name_en": "Cho Kyeong Jae",
+        "alias": "ไม่ระบุ",
+        "image_url": "โจ-คยอง-แจ",
+        "grade": "N/A",
+        "fighting_style_th": "ไม่ระบุ",
+        "fighting_style_en": "ไม่ระบุ",
+        "stance": "ไม่ระบุ",
+        "physical_stats": {
+            "weight_lbs": 144.6,
+            "weight_kg": 65.59,
+            "division": "Bantamweight",
+            "height_ft": "ไม่ระบุ",
+            "height_cm": 173,
+            "reach_cm": "ไม่ระบุ",
+            "leg_reach_cm": "ไม่ระบุ",
+            "hydration": "N/A"
+        },
+        "performance_stats": {
+            "significant_strikes_per_minute": "ยังไม่มีข้อมูล",
+            "significant_strike_accuracy": "ยังไม่มีข้อมูล",
+            "defensive_stats": "ยังไม่มีข้อมูล"
+        },
+        "personal_info": {
+            "country_th": "เกาหลีใต้",
+            "country_en": "South Korea",
+            "age": 27,
+            "team_th": "Jung Woo Gym",
+            "team_en": "Jung Woo Gym"
+        },
+        "target_urls": [
+            "https://www.onefc.com/th/athletes/cho-kyeong-jae/"
+        ],
+        "short_biography": "โจ คยอง แจ (Cho Kyeong Jae) เป็นนักชกชาวเกาหลีใต้ วัย 27 ปี จากสังกัดJung Woo Gym มีความถนัดในการต่อสู้สไตล์ไม่ระบุ ปัจจุบันชกอยู่ในพิกัดน้ำหนัก Bantamweight (ประมาณ 65.59 กิโลกรัม) ส่วนสูง 173 เซนติเมตร ผลงานการชกล่าสุดในรายการ ONE ลุมพินี 152 & The Inner Circle สามารถพ่ายแพ้ให้กับ จามิล ออสมานอฟ ด้วยรูปแบบ KO/TKO ถือเป็นนักชกที่น่าติดตามผลงานอย่างยิ่ง"
+    },
+    "weigh_in_history": [
+        {
+            "event_name": "ONE ลุมพินี 152",
+            "weight_lbs": 144.6,
+            "division": "Bantamweight"
+        }
+    ],
+    "fight_history": [
+        {
+            "result": "Loss",
+            "discipline_en": "คิกบ็อกซิง",
+            "method_en": "KO/TKO",
+            "round": 1,
+            "time": "0:52",
+            "opponent_th": "จามิล ออสมานอฟ",
+            "opponent_en": "",
+            "opponent_country": "Russia",
+            "date": "May 01, 2026",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 152 & The Inner Circle"
+        },
+        {
+            "result": "Win",
+            "discipline_en": "คิกบ็อกซิง",
+            "method_en": "Decision",
+            "round": 1,
+            "time": "2:13",
+            "opponent_th": "โชตะ",
+            "opponent_en": "",
+            "opponent_country": "Japan",
+            "date": "Jan 16, 2026",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 138"
+        }
+    ],
+    "upcoming_fights": []
+}

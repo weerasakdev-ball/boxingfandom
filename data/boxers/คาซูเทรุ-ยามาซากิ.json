@@ -1,0 +1,93 @@
+{
+    "fighter_profile": {
+        "name_th": "คาซูเทรุ ยามาซากิ",
+        "name_en": "Kazuteru Yamazaki",
+        "alias": "",
+        "image_url": "คาซูเทรุ-ยามาซากิ",
+        "grade": "",
+        "fighting_style_th": "คิกบ็อกซิง",
+        "fighting_style_en": "Kickboxing",
+        "stance": "",
+        "physical_stats": {
+            "weight_lbs": 134.4,
+            "weight_kg": 60.96,
+            "division": "Flyweight",
+            "height_ft": "5'6\"",
+            "height_cm": 170,
+            "reach_cm": "",
+            "leg_reach_cm": "",
+            "hydration": "N/A"
+        },
+        "performance_stats": {
+            "significant_strikes_per_minute": {
+                "head": 0,
+                "body": 0,
+                "legs": 0,
+                "total_per_minute": 0
+            },
+            "significant_strike_accuracy": {
+                "overall_accuracy_percentage": 0,
+                "accuracy_by_target_percentage": {
+                    "head": 0,
+                    "body": 0,
+                    "legs": 0
+                }
+            },
+            "defensive_stats": {
+                "overall_defense_percentage": 0,
+                "defense_by_target_percentage": {
+                    "head": 0,
+                    "body": 0,
+                    "legs": 0
+                }
+            }
+        },
+        "personal_info": {
+            "country_th": "ญี่ปุ่น",
+            "country_en": "Japan",
+            "age": 26,
+            "team_th": "Team Teppen",
+            "team_en": "Team Teppen"
+        },
+        "target_urls": [
+            ""
+        ],
+        "short_biography": "คาซูเทรุ ยามาซากิ (Kazuteru Yamazaki) เป็นนักชกชาวญี่ปุ่น วัย 26 ปี จากสังกัดTeam Teppen มีความถนัดในการต่อสู้สไตล์คิกบ็อกซิง ปัจจุบันชกอยู่ในพิกัดน้ำหนัก Flyweight (ประมาณ 60.96 กิโลกรัม) ส่วนสูง 170 เซนติเมตร ผลงานการชกล่าสุดในรายการ ONE ลุมพินี 138 สามารถพ่ายแพ้ให้กับ ดิโอโก มิเกล ซิลวา ด้วยรูปแบบ Unanimous Decision ถือเป็นนักชกที่น่าติดตามผลงานอย่างยิ่ง"
+    },
+    "fight_history": [
+        {
+            "result": "Loss",
+            "discipline_en": "Kickboxing",
+            "method_en": "Unanimous Decision",
+            "round": 3,
+            "time": "3:00",
+            "opponent_th": "ดิโอโก มิเกล ซิลวา",
+            "opponent_en": "Diogo Miguel Silva",
+            "opponent_country": "เคปเวิร์ด",
+            "date": "Jan 16, 2026",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 138"
+        },
+        {
+            "result": "Win",
+            "discipline_en": "Kickboxing",
+            "method_en": "Unanimous Decision",
+            "round": 3,
+            "time": "3:00",
+            "opponent_th": "อับเดฮามิด ตาลบี",
+            "opponent_en": "Abdelhamid Talbi",
+            "opponent_country": "โมร็อกโก",
+            "date": "Oct 10, 2025",
+            "rating": 5,
+            "event_en": "ONE ลุมพินี 128"
+        }
+    ],
+    "weigh_in_history": [
+        {
+            "event_name": "ONE Lumpinee150",
+            "weight_lbs": 134.4,
+            "division": "Flyweight"
+        }
+    ],
+    "upcoming_fights": []
+}
