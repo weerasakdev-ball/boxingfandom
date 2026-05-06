@@ -178,18 +178,10 @@
     <p>© 2026 <a href="../../index.html">BoxingFandom</a> · ข้อมูลสถิตินักมวยไทย ONE Championship</p>
   </footer>
 
+  <script src="../../assets/js/shared.js"></script>
   <script>
     const INIT_SHOW = 15;
     const LOAD_MORE = 15;
-
-    function imgUrl(id, w, h) {
-      if (!id || id==='ไม่ระบุ' || id==='ยังไม่มีข้อมูล' || !id.trim() || id==='noname') return '../../assets/images/noname.jpg';
-      if (id.startsWith('http') || id.startsWith('../../')) return id;
-      
-      // 🛠️ แก้ไขที่ 1: เปลี่ยนจาก encodeURIComponent เป็น encodeURI
-      let clean = id.trim().replace(/\.(jpg|jpeg|png|webp)$/i, '');
-      return `https://res.cloudinary.com/dpvyl7nan/image/upload/c_fill,g_face,h_${h},w_${w},f_auto,q_auto/v1/${encodeURI(clean)}`;
-    }
 
     let allFighters = [];
     let filtered    = [];
@@ -201,16 +193,12 @@
     async function loadFighters() {
       const grid = document.getElementById('grid');
       try {
-        const listRes = await fetch('../../data/boxers/fighters-list.json');
-        if (!listRes.ok) throw new Error('ไม่พบ fighters-list.json');
-        const files = await listRes.json();
+        const files = await fetchJSON('fighters-list.json');
+        if (!files) throw new Error('ไม่พบ fighters-list.json');
 
         const results = await Promise.all(files.map(async file => {
-          try {
-            const r = await fetch('../../data/boxers/'+encodeURIComponent(file));
-            if (r.ok) return {...(await r.json()), fileName: file};
-          } catch {}
-          return null;
+          const d = await fetchJSON(file);
+          return d ? { ...d, fileName: file } : null;
         }));
 
         allFighters = results.filter(Boolean);
@@ -257,7 +245,7 @@
         const wins   = h.filter(x => x.result === 'Win').length;
         const losses = h.filter(x => x.result === 'Loss').length;
         const draws  = h.filter(x => x.result === 'Draw').length;
-        const img    = imgUrl(p.image_url, 300, 300);
+        const img    = getCloudinaryUrl(p.image_url, 300, 300);
         const alias  = p.alias && p.alias !== 'ไม่ระบุ' ? `"${p.alias}"` : '';
         const grade  = p.grade && p.grade !== 'N/A' ? p.grade : null;
         const url    = encodeURIComponent(f.fileName.replace('.json','.html'));
@@ -326,7 +314,7 @@
             const p = f.fighter_profile||{};
             const url = encodeURIComponent(f.fileName.replace('.json','.html'));
             return `<a href="${url}" class="drop-item">
-              <img src="${imgUrl(p.image_url,70,70)}" onerror="this.onerror=null; this.src='../../assets/images/noname.jpg';">
+              <img src="${getCloudinaryUrl(p.image_url,70,70)}" onerror="this.onerror=null; this.src='../../assets/images/noname.jpg';">
               <div><div class="drop-name">${p.name_th||'—'}</div><div class="drop-meta">${p.physical_stats?.division||'—'}</div></div>
             </a>`;
           }).join('');
