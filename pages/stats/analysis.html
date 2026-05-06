@@ -19,6 +19,7 @@
         gtag('config', 'G-RTGDWTKBRG');
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7070993370449457" crossorigin="anonymous"></script>
+    <script src="../../assets/js/shared.js"></script>
 
     <style>
         /* ===== DESIGN TOKENS — ตรงกับ template.html ===== */
@@ -353,15 +354,7 @@
         let db = [];
         let f1 = null, f2 = null;
 
-        /* ===== Cloudinary ===== */
-        function getCloudinaryUrl(imgId, w, h) {
-            if (!imgId || imgId === "ไม่ระบุ" || imgId === "ยังไม่มีข้อมูล" || imgId.trim() === "" || imgId === "noname") return "../../assets/images/noname.jpg";
-            if (imgId.startsWith('http') || imgId.includes('assets/')) return imgId;
-            let clean = imgId.replace(/\.(jpg|jpeg|png|webp)$/i, '');
-            return `https://res.cloudinary.com/dpvyl7nan/image/upload/c_fill,g_face,h_${h},w_${w},f_auto,q_auto/v1/${encodeURIComponent(clean)}`;
-        }
-
-        /* ===== Init — multi-path fallback (เหมือน template.html) ===== */
+        /* ===== Init ===== */
         let dbReady = false;
 
         async function init() {
@@ -370,44 +363,22 @@
             if (i1) i1.placeholder = '⏳ กำลังโหลดข้อมูล...';
             if (i2) i2.placeholder = '⏳ กำลังโหลดข้อมูล...';
 
-            const listPaths = [
-                '../../data/boxers/fighters-list.json',
-                '../data/boxers/fighters-list.json',
-                './data/boxers/fighters-list.json'
-            ];
-
-            let files = [];
-            let workingBasePath = '';
-
-            for (const path of listPaths) {
-                try {
-                    const res = await fetch(path);
-                    if (res.ok) {
-                        files = await res.json();
-                        workingBasePath = path.replace('fighters-list.json', '');
-                        console.log('[Analysis] โหลด fighters-list สำเร็จจาก:', path);
-                        break;
-                    }
-                } catch (e) { /* ลอง path ถัดไป */ }
-            }
-
-            if (files.length === 0) {
-                console.warn('[Analysis] ไม่พบ fighters-list.json ใน 3 path ที่ลอง');
+            const files = await fetchJSON('fighters-list.json');
+            if (!files || files.length === 0) {
                 if (i1) i1.placeholder = '❌ ไม่พบข้อมูล กรุณาตรวจสอบ path';
                 if (i2) i2.placeholder = '❌ ไม่พบข้อมูล กรุณาตรวจสอบ path';
                 return;
             }
 
             try {
-                const promises = files.map(async (f) => {
-                    try {
-                        const res = await fetch(`${workingBasePath}${encodeURIComponent(f.trim())}`);
-                        return res.ok ? { ...(await res.json()), fileName: f } : null;
-                    } catch (e) { return null; }
-                });
-                db = (await Promise.all(promises)).filter(x => x !== null);
+                const results = await Promise.all(
+                    files.map(async (f) => {
+                        const d = await fetchJSON(f.trim());
+                        return d ? { ...d, fileName: f } : null;
+                    })
+                );
+                db = results.filter(Boolean);
                 dbReady = true;
-                console.log(`[Analysis] โหลดนักมวยสำเร็จ ${db.length} คน`);
             } catch (e) {
                 console.error('[Analysis] โหลดข้อมูลล้มเหลว:', e);
             }
