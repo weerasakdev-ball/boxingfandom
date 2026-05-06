@@ -229,9 +229,10 @@
     </div>
   </main>
 
+  <script src="assets/js/shared.js"></script>
   <script>
     const gradeWeight = { "S": 10, "A+": 9, "A": 8, "B+": 7, "B": 6, "C+": 5, "C": 4 };
-    
+
     const targetDivisions = [
       { key: "flyweight", title: "รุ่นฟลายเวต (135 ป.)" },
       { key: "bantamweight", title: "รุ่นแบนตัมเวต (145 ป.)" },
@@ -242,15 +243,6 @@
     ];
 
     let globalFightersData = []; 
-
-    function getCloudinaryUrl(imgId, w, h) {
-      const noImg = 'assets/images/noname.jpg';
-      if (!imgId || imgId === 'ไม่ระบุ' || imgId === 'ยังไม่มีข้อมูล' || imgId.trim() === '' || imgId === 'noname') return noImg;
-      if (imgId.startsWith('http') || imgId.includes('assets/')) return imgId;
-      
-      let clean = imgId.trim().replace(/\.(jpg|jpeg|png|webp)$/i, '');
-      return `https://res.cloudinary.com/dpvyl7nan/image/upload/c_fill,g_face,h_${h},w_${w},f_auto,q_auto/v1/${encodeURI(clean)}`;
-    }
 
     function calculateStats(fights, selectedYear) {
       let validFights = fights || [];
@@ -378,21 +370,16 @@
 
     async function initSystem() {
       try {
-        const listRes = await fetch('data/boxers/fighters-list.json');
-        if (!listRes.ok) throw new Error('ไม่พบข้อมูลนักมวย');
-        const files = await listRes.json();
+        const files = await fetchJSON('fighters-list.json');
+        if (!files) throw new Error('ไม่พบข้อมูลนักมวย');
 
         const results = await Promise.all(files.map(async (file) => {
-          try {
-            const res = await fetch(`data/boxers/${encodeURIComponent(file)}`);
-            if (!res.ok) return null;
-            const data = await res.json();
-            return { ...data, fileName: file };
-          } catch { return null; }
+          const data = await fetchJSON(file);
+          return data ? { ...data, fileName: file } : null;
         }));
 
         globalFightersData = results.filter(Boolean);
-        renderRankings(); 
+        renderRankings();
 
       } catch (err) {
         document.getElementById('rankingsGrid').innerHTML = `<div style="color: var(--google-red); grid-column: 1/-1; text-align: center;">เกิดข้อผิดพลาด: ${err.message}</div>`;
