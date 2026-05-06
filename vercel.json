@@ -1,0 +1,13 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/pipeline",
+      "schedule": "0 2 * * *"
+    }
+  ],
+  "functions": {
+    "api/cron/pipeline.js": {
+      "maxDuration": 300
+    }
+  }
+}
