@@ -22,6 +22,7 @@
         gtag('config', 'G-RTGDWTKBRG');
     </script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7070993370449457" crossorigin="anonymous"></script>
+    <script src="../../assets/js/shared.js"></script>
 
     <style>
         /* ===== DESIGN TOKENS — ตรงกับ template.html ===== */
@@ -495,14 +496,6 @@
         let selectedFighter1 = null;
         let selectedFighter2 = null;
 
-        /* ===== Cloudinary URL ===== */
-        function getCloudinaryUrl(imgId, w, h) {
-            if (!imgId || imgId === "ไม่ระบุ" || imgId === "ยังไม่มีข้อมูล" || imgId.trim() === "" || imgId === "noname") return "../../assets/images/noname.jpg";
-            if (imgId.startsWith('http') || imgId.includes('assets/')) return imgId;
-            let clean = imgId.replace(/\.(jpg|jpeg|png|webp)$/i, '');
-            return `https://res.cloudinary.com/dpvyl7nan/image/upload/c_fill,g_face,h_${h},w_${w},f_auto,q_auto/v1/${encodeURIComponent(clean)}`;
-        }
-
         /* ===== Days since fight ===== */
         function daysSince(dateStr) {
             if (!dateStr || dateStr === "ไม่ระบุ" || dateStr === "-") return "-";
@@ -523,16 +516,15 @@
         /* ===== Init — load fighter DB ===== */
         async function init() {
             try {
-                const listRes = await fetch('../../data/boxers/fighters-list.json');
-                const files = await listRes.json();
-                const fetchPromises = files.map(async (f) => {
-                    try {
-                        const res = await fetch(`../../data/boxers/${encodeURIComponent(f.trim())}`);
-                        if (res.ok) { const d = await res.json(); return { ...d, fileName: f }; }
-                    } catch (e) {}
-                    return null;
-                });
-                db = (await Promise.all(fetchPromises)).filter(x => x !== null);
+                const files = await fetchJSON('fighters-list.json');
+                if (!files) return;
+                const results = await Promise.all(
+                    files.map(async (f) => {
+                        const d = await fetchJSON(f.trim());
+                        return d ? { ...d, fileName: f } : null;
+                    })
+                );
+                db = results.filter(Boolean);
                 renderDropdownList(1, db);
                 renderDropdownList(2, db);
             } catch (e) { console.error("Init Error:", e); }
